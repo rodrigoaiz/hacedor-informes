@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{titulo}}</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="page-container">
+        <header>
+            <h1>INFORME DE ACTIVIDADES</h1>
+        </header>
+
+        <section class="informacion-general">
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Nombre</th>
+                        <td>{{nombre}}</td>
+                    </tr>
+                    <tr>
+                        <th>Correo</th>
+                        <td>{{correo}}</td>
+                    </tr>
+                    <tr>
+                        <th>Teléfono de contacto</th>
+                        <td>{{telefono}}</td>
+                    </tr>
+                    <tr>
+                        <th>Nombre del jefe inmediato</th>
+                        <td>{{jefe}}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha</th>
+                        <td>{{fecha}}</td>
+                    </tr>
+                    <tr>
+                        <th>Periodo a reportar</th>
+                        <td>{{periodo}}</td>
+                    </tr>
+                    <tr>
+                        <th>RFC</th>
+                        <td>{{rfc}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="contenido">
+            {{contenido}}
+        </section>
+
+        <!-- Salto de página forzado antes de las firmas, o mantenido junto al final, dependiendo del PDF -->
+        <div class="salto-pagina"></div>
+
+        <footer>
+            <div class="firmas-container">
+                <div class="firma-box">
+                    <div class="linea-firma"></div>
+                    <p class="nombre-firma">{{nombre_firma_1}}</p>
+                    <p class="cargo-firma">{{cargo_firma_1}}</p>
+                </div>
+                <div class="firma-box">
+                    <div class="linea-firma"></div>
+                    <p class="nombre-firma">{{nombre_firma_2}}</p>
+                    <p class="cargo-firma">{{cargo_firma_2}}</p>
+                </div>
+                <div class="firma-box firma-completa">
+                    <div class="linea-firma"></div>
+                    <p class="nombre-firma">{{nombre_firma_3}}</p>
+                    <p class="cargo-firma">{{cargo_firma_3}}</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

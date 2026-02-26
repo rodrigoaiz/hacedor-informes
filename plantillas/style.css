@@ -1,0 +1,154 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+    line-height: 1.6;
+    background-color: white; /* Para PDF */
+    font-size: 11pt;
+}
+
+.page-container {
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 18pt;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #000;
+}
+
+/* Tabla de información general */
+.informacion-general {
+    margin-bottom: 40px;
+}
+
+.informacion-general table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.informacion-general th,
+.informacion-general td {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.informacion-general th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #000;
+    width: 40%;
+}
+
+/* Contenido Principal (Markdown convertido) */
+.contenido {
+    margin-bottom: 50px;
+}
+
+.contenido h2 {
+    font-size: 14pt;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    color: #222;
+}
+
+.contenido h3 {
+    font-size: 12pt;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #444;
+}
+
+.contenido p {
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+.contenido ul, .contenido ol {
+    margin-bottom: 15px;
+    padding-left: 20px;
+}
+
+.contenido li {
+    margin-bottom: 5px;
+}
+
+/* Imágenes dentro del contenido */
+.contenido img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Paginación - Importante para PDF */
+.salto-pagina {
+    page-break-before: always; 
+}
+
+/* Evitar que las imágenes o tablas se partan a la mitad */
+img, table, tr, td, th {
+    page-break-inside: avoid;
+}
+
+/* Firmas Container */
+footer {
+    margin-top: 60px;
+    page-break-inside: avoid; /* Mantener todo el footer junto en lo posible */
+}
+
+.firmas-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.firma-box {
+    width: 45%; /* Dos columnas para las dos primeras firmas */
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.firma-completa {
+    width: 100%; /* La última firma ocupa la fila completa, centrada */
+    padding-top: 5rem;
+}
+
+.linea-firma {
+    border-top: 1px solid #000;
+    width: 80%;
+    margin: 0 auto 10px auto;
+}
+
+.nombre-firma {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 10pt;
+    margin-bottom: 5px;
+}
+
+.cargo-firma {
+    font-size: 9pt;
+    color: #555;
+    text-transform: uppercase;
+}

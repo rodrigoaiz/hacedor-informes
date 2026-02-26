@@ -1,0 +1,18 @@
+{
+  "name": "hace-reportes",
+  "version": "1.0.0",
+  "description": "Genera informes de actividades desde un archivo Markdown estructurado y produce: - HTML listo para revisar. - PDF tamaño carta automático (opcional) usando LibreOffice.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "marked": "^17.0.3",
+    "puppeteer": "^24.37.5"
+  }
+}
