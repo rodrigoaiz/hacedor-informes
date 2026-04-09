@@ -5,6 +5,7 @@ const path = require('path');
 const matter = require('gray-matter');
 const { marked } = require('marked');
 const puppeteer = require('puppeteer');
+const { execSync } = require('child_process');
 
 /**
  * Procesa el contenido markdown para convertir rutas de imágenes relativas
@@ -240,9 +241,75 @@ async function generarReporte() {
 
         await browser.close();
 
-        console.log('\n✅ ¡Reporte generado exitosamente!\n');
-        console.log(`   HTML: salida/${nombreBase}.html`);
-        console.log(`   PDF:  salida/${nombreBase}.pdf\n`);
+        console.log('6️⃣  Generando DOCX con Pandoc...');
+        
+        // Generar DOCX usando Pandoc
+        const outputDocxPath = path.join(salidaDir, `${nombreBase}.docx`);
+        
+        try {
+            // Crear un markdown temporal con metadatos y contenido completo para Pandoc
+            // Incluimos las firmas al final del contenido
+            const seccionFirmas = `
+
+---
+
+## FIRMAS
+
+**${data.nombre_firma_1 || ''}**  
+_${data.cargo_firma_1 || ''}_
+
+**${data.nombre_firma_2 || ''}**  
+_${data.cargo_firma_2 || ''}_
+
+**${data.nombre_firma_3 || ''}**  
+_${data.cargo_firma_3 || ''}_
+`;
+
+            const markdownParaPandoc = `---
+title: "${data.titulo || 'Informe'}"
+author: "${data.nombre || ''}"
+date: "${data.fecha || ''}"
+---
+
+# INFORME DE ACTIVIDADES
+
+**Nombre:** ${data.nombre || ''}  
+**Correo:** ${data.correo || ''}  
+**Teléfono de contacto:** ${data.telefono || ''}  
+**Nombre del jefe inmediato:** ${data.jefe || ''}  
+**Fecha:** ${data.fecha || ''}  
+**Periodo a reportar:** ${data.periodo || ''}  
+**RFC:** ${data.rfc || ''}
+
+---
+
+${parsed.content}${seccionFirmas}
+`;
+            
+            const tempMdPath = path.join(salidaDir, `${nombreBase}_temp.md`);
+            fs.writeFileSync(tempMdPath, markdownParaPandoc);
+            
+            // Ejecutar Pandoc con la carpeta de trabajo configurada para resolver imágenes
+            const pandocCmd = `cd "${path.dirname(inputMarkdown)}" && pandoc "${tempMdPath}" -o "${outputDocxPath}" --resource-path="${path.dirname(inputMarkdown)}" 2>/dev/null || pandoc "${tempMdPath}" -o "${outputDocxPath}"`;
+            
+            execSync(pandocCmd, {
+                stdio: 'pipe',
+                shell: '/bin/bash'
+            });
+            
+            // Eliminar archivo temporal
+            fs.unlinkSync(tempMdPath);
+            
+            console.log('\n✅ ¡Reporte generado exitosamente!\n');
+            console.log(`   HTML: salida/${nombreBase}.html`);
+            console.log(`   PDF:  salida/${nombreBase}.pdf`);
+            console.log(`   DOCX: salida/${nombreBase}.docx\n`);
+        } catch (docxError) {
+            console.warn(`⚠️  No se pudo generar DOCX: ${docxError.message}`);
+            console.log('\n✅ ¡Reporte generado exitosamente!\n');
+            console.log(`   HTML: salida/${nombreBase}.html`);
+            console.log(`   PDF:  salida/${nombreBase}.pdf\n`);
+        }
 
     } catch (error) {
         console.error('\n❌ Error generando el reporte:', error.message);

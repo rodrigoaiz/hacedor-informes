@@ -1,6 +1,6 @@
 # Generador de informes mensuales
 
-Genera informes de actividades desde un archivo Markdown estructurado y produce automáticamente HTML y PDF tamaño carta.
+Genera informes de actividades desde un archivo Markdown estructurado y produce automáticamente HTML, PDF y DOCX.
 
 ## 🚀 Uso rápido
 
@@ -32,11 +32,12 @@ npm run ver 2026-02   # Abre el PDF en tu visor
 Eso es todo. El script automáticamente:
 - ✅ Busca el archivo en la carpeta `reportes/`
 - ✅ Incluye los logos institucionales en la cabecera
-- ✅ Genera HTML y PDF
+- ✅ Genera HTML, PDF y DOCX
 - ✅ Los guarda en `salida/`
 
 ## 📋 Requisitos
 - Node.js 16+
+- Pandoc (para generación de DOCX)
 - Las dependencias se instalan con: `npm install`
 
 ## 📁 Estructura
