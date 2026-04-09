@@ -33,6 +33,66 @@ function procesarImagenes(contenidoMd, carpetaBase) {
     });
 }
 
+/**
+ * Procesa el HTML de la sección PROBATORIOS para organizar las imágenes en un grid 2x2
+ */
+function procesarProbatorios(htmlContent) {
+    // Buscar la sección PROBATORIOS y sus subsecciones hasta el final
+    const probatoriosRegex = /(<h2[^>]*>PROBATORIOS<\/h2>)([\s\S]*?)(<div class="salto-pagina">|$)/i;
+    
+    if (!probatoriosRegex.test(htmlContent)) {
+        return htmlContent; // No hay sección PROBATORIOS
+    }
+    
+    return htmlContent.replace(probatoriosRegex, (match, h2Tag, contenido, finale) => {
+        // Procesar cada subsección (h3) que contiene imágenes
+        const subseccionesConGrid = contenido.replace(
+            /(<h3[^>]*>.*?<\/h3>)\s*<p>((?:<img[^>]+>\s*)+)<\/p>/gi,
+            (subMatch, h3Tag, imagenesHtml) => {
+                // Extraer el título completo de la subsección
+                const tituloMatch = h3Tag.match(/<h3[^>]*>(.*?)<\/h3>/i);
+                const tituloCompleto = tituloMatch ? tituloMatch[1].replace(/<[^>]+>/g, '') : '';
+                
+                // Extraer solo la parte antes del primer guion para el h3
+                const tituloCorto = tituloCompleto.split(' - ')[0].trim();
+                
+                // Actualizar el h3 con el título corto
+                const h3TagCorto = h3Tag.replace(/>.*?<\/h3>/, `>${tituloCorto}</h3>`);
+                
+                // Extraer todas las imágenes
+                const imagenesArray = [];
+                const imgRegex = /<img\s+src="([^"]+)"\s+alt="([^"]*)"/gi;
+                let imgMatch;
+                
+                while ((imgMatch = imgRegex.exec(imagenesHtml)) !== null) {
+                    imagenesArray.push({
+                        src: imgMatch[1],
+                        alt: imgMatch[2]
+                    });
+                }
+                
+                // Crear el grid con UN SOLO caption para todo el bloque (con título completo)
+                let gridHtml = '<div class="probatorios-section">\n';
+                gridHtml += '<div class="probatorios-grid">\n';
+                
+                imagenesArray.forEach((img) => {
+                    gridHtml += `  <img src="${img.src}" alt="${img.alt}">\n`;
+                });
+                
+                gridHtml += '</div>\n';
+                
+                // Caption único para todo el bloque con el título COMPLETO
+                gridHtml += `<p class="probatorios-caption">${tituloCompleto}</p>\n`;
+                gridHtml += '</div>';
+                
+                return h3TagCorto + '\n' + gridHtml;
+            }
+        );
+        
+        return h2Tag + subseccionesConGrid + (finale || '');
+    });
+}
+
 // Obtener el argumento desde la línea de comandos
 const argumento = process.argv[2];
 
@@ -100,7 +160,10 @@ async function generarReporte() {
         const carpetaBase = path.dirname(inputMarkdown);
         const contenidoConImagenesCorregidas = procesarImagenes(parsed.content, carpetaBase);
         
-        const htmlContent = marked.parse(contenidoConImagenesCorregidas);
+        let htmlContent = marked.parse(contenidoConImagenesCorregidas);
+        
+        // Procesar la sección PROBATORIOS para crear grid 2x2
+        htmlContent = procesarProbatorios(htmlContent);
 
         console.log('3️⃣  Aplicando plantilla HTML...');
         let template = fs.readFileSync(templateHtmlPath, 'utf8');
@@ -160,11 +223,18 @@ async function generarReporte() {
             path: outputPdfPath,
             format: 'Letter',
             printBackground: true,
+            displayHeaderFooter: true,
+            footerTemplate: `
+                <div style="font-size: 9pt; color: #666; text-align: right; width: 100%; padding-right: 20px;">
+                    <span class="pageNumber"></span> / <span class="totalPages"></span>
+                </div>
+            `,
+            headerTemplate: '<div></div>', // Header vacío
             margin: {
-                top: '20mm',
-                right: '20mm',
-                bottom: '20mm',
-                left: '20mm'
+                top: '15mm',
+                right: '15mm',
+                bottom: '20mm', // Espacio para el footer con número de página
+                left: '15mm'
             }
         });
 

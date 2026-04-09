@@ -14,32 +14,71 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     color: #333;
-    line-height: 1.6;
+    line-height: 1.5;
     background-color: white; /* Para PDF */
-    font-size: 11pt;
+    font-size: 10pt;
 }
 
 .page-container {
-    padding: 40px;
+    padding: 30px;
     max-width: 800px;
     margin: 0 auto;
 }
 
 header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #003366;
+    padding-bottom: 15px;
+}
+
+.header-logos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo-izquierdo,
+.logo-derecho {
+    width: 80px;
+    height: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.header-centro {
+    flex: 1;
+    text-align: center;
+}
+
+.header-linea1,
+.header-linea2,
+.header-linea3 {
+    font-size: 8pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 2px 0;
+    color: #003366;
+}
+
+.header-linea1 {
+    font-size: 9pt;
 }
 
 header h1 {
-    font-size: 18pt;
+    font-size: 14pt;
     text-transform: uppercase;
     font-weight: bold;
     color: #000;
+    margin-top: 10px;
+    border-top: 1px solid #ccc;
+    padding-top: 8px;
 }
 
 /* Tabla de información general */
 .informacion-general {
-    margin-bottom: 40px;
+    margin-bottom: 25px;
 }
 
 .informacion-general table {
@@ -49,7 +88,7 @@ header h1 {
 
 .informacion-general th,
 .informacion-general td {
-    padding: 8px 12px;
+    padding: 6px 10px;
     border: 1px solid #ccc;
     text-align: left;
 }
@@ -63,37 +102,37 @@ header h1 {
 
 /* Contenido Principal (Markdown convertido) */
 .contenido {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 .contenido h2 {
-    font-size: 14pt;
-    margin-top: 25px;
-    margin-bottom: 15px;
+    font-size: 13pt;
+    margin-top: 15px;
+    margin-bottom: 10px;
     border-bottom: 1px solid #ccc;
-    padding-bottom: 5px;
+    padding-bottom: 4px;
     color: #222;
 }
 
 .contenido h3 {
-    font-size: 12pt;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    font-size: 10.5pt;
+    margin-top: 8px;
+    margin-bottom: 5px;
     color: #444;
 }
 
 .contenido p {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     text-align: justify;
 }
 
 .contenido ul, .contenido ol {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     padding-left: 20px;
 }
 
 .contenido li {
-    margin-bottom: 5px;
+    margin-bottom: 3px;
 }
 
 /* Imágenes dentro del contenido */
@@ -101,9 +140,50 @@ header h1 {
     max-width: 100%;
     height: auto;
     display: block;
-    margin: 20px auto;
+    margin: 3px auto;
     border: 1px solid #ddd;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Grid 2x2 para probatorios */
+.probatorios-section {
+    margin: 5px 0;
+    page-break-inside: avoid;
+}
+
+.probatorios-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    margin-bottom: 0;
+}
+
+.probatorios-grid img {
+    width: 100%;
+    height: 160px;
+    max-height: 160px;
+    object-fit: cover;
+    object-position: center;
+    border: 1px solid #ddd;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    display: block;
+    overflow: hidden;
+}
+
+.probatorios-caption {
+    text-align: center;
+    font-size: 8.5pt;
+    color: #666;
+    padding: 5px 8px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-top: none;
+    font-style: italic;
+    margin-top: 0;
+    margin-bottom: 5px;
+    page-break-after: avoid;
+    display: block;
+    width: 100%;
 }
 
 /* Paginación - Importante para PDF */
@@ -116,45 +196,59 @@ img, table, tr, td, th {
     page-break-inside: avoid;
 }
 
-/* Firmas Container */
+/* Firmas Container - SIEMPRE junto al último probatorio */
 footer {
-    margin-top: 60px;
-    page-break-inside: avoid; /* Mantener todo el footer junto en lo posible */
+    margin-top: 50px;
+    page-break-before: avoid !important;
+    page-break-inside: avoid !important;
+}
+
+/* Asegurar que el último probatorio y las firmas estén juntos */
+.contenido {
+    page-break-after: avoid !important;
+}
+
+/* Evitar salto de página antes del footer */
+h2, h3 {
+    page-break-after: avoid;
+}
+
+.probatorios-section:last-of-type {
+    page-break-after: avoid !important;
 }
 
 .firmas-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 40px;
+    gap: 30px;
 }
 
 .firma-box {
     width: 45%; /* Dos columnas para las dos primeras firmas */
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .firma-completa {
     width: 100%; /* La última firma ocupa la fila completa, centrada */
-    padding-top: 5rem;
 }
 
 .linea-firma {
     border-top: 1px solid #000;
     width: 80%;
-    margin: 0 auto 10px auto;
+    margin: 0 auto 8px auto;
 }
 
 .nombre-firma {
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 10pt;
-    margin-bottom: 5px;
+    font-size: 9.5pt;
+    margin-bottom: 4px;
 }
 
 .cargo-firma {
-    font-size: 9pt;
+    font-size: 8.5pt;
     color: #555;
     text-transform: uppercase;
 }
@@ -163,7 +257,16 @@ footer {
 <body>
     <div class="page-container">
         <header>
-            <h1>INFORME DE ACTIVIDADES</h1>
+            <div class="header-logos">
+                <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/assets/logos/logo-unam.png" alt="Logo UNAM" class="logo-izquierdo">
+                <div class="header-centro">
+                    <p class="header-linea1">UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</p>
+                    <p class="header-linea2">FACULTAD DE MEDICINA</p>
+                    <p class="header-linea3">SECRETARÍA DE UNIVERSIDAD ABIERTA Y EDUCACIÓN A DISTANCIA</p>
+                    <h1>INFORME DE ACTIVIDADES</h1>
+                </div>
+                <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/assets/logos/logo-facmed.png" alt="Logo Facultad de Medicina" class="logo-derecho">
+            </div>
         </header>
 
         <section class="informacion-general">
@@ -202,62 +305,78 @@ footer {
         </section>
 
         <section class="contenido">
-            <h1>DESCRIPCIÓN GENERAL DE ACTIVIDADES</h1>
-<p>Integración de recursos web para Unidades de Apoyo para el Aprendizaje, asignaturas optativas y obligatorias a distancia, con base en el presupuesto establecido para este fin en las Bases de Colaboración que se realizan entre la Coordinación de Universidad Abierta y Educación Digital (CUAED) y la Facultad de Medicina del 1 de febrero al 28 de febrero de 2026.</p>
+            <h2>DESCRIPCIÓN GENERAL DE ACTIVIDADES</h2>
+<p>Integración de recursos web para Unidades de Apoyo para el Aprendizaje, asignaturas optativas y obligatorias a distancia, con base en el presupuesto establecido para este fin en las Bases de Colaboración que se realizan entre la Coordinación de Universidad Abierta y Educación Digital (CUAED) y la Facultad de Medicina del 1 de marzo al 31 de marzo de 2026.</p>
 <h2>ACTIVIDADES REALIZADAS</h2>
-<h3>Asignaturas optativas y obligatorias-Licenciatura en Médico Cirujano - MOLIMOD</h3>
-<p>Correcciones y cambios en contenido de la asignatura “Introducción a la Tanatología”, adecuación y edición de recursos de plataforma (CUAED) para versiones web de la asignatura.</p>
+<h3>Educación continua: Cursos para médicos generales - DIPLOSUAYED</h3>
+<p>Integración del diplomado &quot;Infección Pulmonar por <em>Mycobacterium Tuberculosis</em> en Personas Adultas&quot; que incluye la actualización a la nueva plataforma, desarrollo de contenido HTML para plataforma, producción audiovisual y creación de infografías.</p>
 <ul>
-<li>Cambios de contenido HTML en plataforma. (3)</li>
-</ul>
-<h3>Ponte en line@</h3>
-<p>Correcciones y cambios en contenido de la UAPA “Digestión y Absorción de Nutrientes”, adecuación y edición de recursos de plataforma (CUAED) para versiones web de la UAPA.</p>
-<ul>
-<li>Cambio, actualización y adición de contenido HTML en repositorio GitHub (7)</li>
-<li>Ajuste en estilos CSS para su correcta visualización en dispositivos móviles.</li>
-<li>Cambio de contenido en infografías (1)</li>
-</ul>
-<p>Correcciones de la UAPA “La Síntesis como Cuarto Paso del Método Estadístico ” adecuación y edición de recursos de plataforma (CUAED) para versiones web de la UAPA.</p>
-<ul>
-<li>Cambio, actualización y adición de contenido HTML en repositorio GitHub (6)</li>
-<li>Ajuste personalizado de recursos del Catálogo CUAED (11 recursos).</li>
-<li>Creación de infografías HTML responsivas con ilustraciones (4 recursos).</li>
-<li>Creación de código CSS y optimización de código HTML para correcta visualización en dispositivos móviles.</li>
-<li>Creación de tablas responsivas (5 tablas).</li>
-</ul>
-<p>Correcciones de la UAPA “La Recolección como Primer Paso del Método Estadístico”.</p>
-<ul>
-<li>Cambio, actualización y adición de contenido HTML (4).</li>
-</ul>
-<p>Integración de la UAPA “Contracción del Músculo Esquelético”, adecuación y edición de recursos de plataforma (CUAED) para versiones web de la UAPA.</p>
-<ul>
-<li>Ajuste personalizado de recursos del Catálogo CUAED (5 recursos).</li>
-<li>Creación de infografías con ilustraciones (4 recursos).</li>
-<li>Creación de código CSS y optimización de código HTML para correcta visualización en dispositivos móviles.</li>
-<li>Creación de tablas responsivas (3 tablas).</li>
-</ul>
-<p><strong>Producción Audiovisual</strong></p>
-<ul>
-<li>Creación de repositorio GitHub.</li>
-<li>Producción de video que incluye:<ul>
-<li>Edición de cortinilla de entrada y cierre.</li>
-<li>Producción sonora (mezcla de música y narración de voz en off).</li>
-<li>Producción motion graphics con base en presentación.</li>
+<li>Desarrollo de contenido en recursos de aprendizaje en HTML y CSS en plataforma Moodle almacenadas en repositorio GitHub. (5 recursos de aprendizaje)</li>
+<li>Adaptación de recursos del Catálogo CUAED con cambios y adapatación en diseño y código (17 recursos).</li>
+<li>Generación y diseño de tablas responsivas (18 tablas).</li>
+<li>Creación de infografías HTML responsivas con ilustraciones (1 infografía).</li>
+<li>Integración de actividades tipo examen y tareas Moodle (7 actividades).</li>
+<li>Integración de recurso de autoevaluación con retroalimentación personalizada (1 recurso).</li>
+<li>Producción gráfica que incluye:<ul>
+<li>Edición html de portada de la unidad del diplomado</li>
+<li>Adaptación de los objetivos de aprendizaje y los temas de la unidad a formato HTML para su integración en plataforma.</li>
 </ul>
 </li>
 </ul>
+<p>Cambios y correcciones en contenido del diplomado &quot;Infección Pulmonar por <em>Mycobacterium Tuberculosis</em> en Personas Adultas&quot;.</p>
+<ul>
+<li>Corrección de errores ortográficos y gramaticales así como de estilos en contenido HTML.</li>
+<li>Adición de contenido HTML para mejorar la comprensión de los recursos y las actividades Moodle.</li>
+<li>Ajuste en estilos CSS para su correcta visualización en dispositivos móviles.</li>
+<li>Creación de código CSS y optimización de código HTML.</li>
+</ul>
+<h3>Ponte en line@</h3>
+<p>Correcciones y cambios en contenido de la UAPA “Contracción del Músculo Esquelético”, adecuación y edición de recursos de plataforma (CUAED) para versiones web de la UAPA.</p>
+<ul>
+<li>Cambio, actualización y adición de contenido HTML en repositorio GitHub (4)</li>
+<li>Ajuste en estilos CSS para su correcta visualización en dispositivos móviles.</li>
+<li>Creación de código CSS y optimización de código HTML para correcta visualización en dispositivos móviles.</li>
+</ul>
+<h3>Libros electrónicos FundamentaleSS</h3>
+<p>Generación de contenido educativo audiovisual para el libro electrónico de la asignatura optativa a distancia &quot;FundamentaleSS: Urgencias Médico-Quirúrgicas Vol. VI&quot; que incluye la producción de video motion graphics y generación y edición de audio con narración con base en escaleta.</p>
+<ul>
+<li>Edición de audio con narración de voz en off y mezcla de música para video.</li>
+<li>Edición de video motion graphics con base en presentación de PowerPoint.</li>
+<li>Generación de fórmula matemática en formato LaTeX para su integración producción audiovisual.</li>
+</ul>
 <h2>PROBATORIOS</h2>
-<p><em><em>(Sustituye estas URLs de prueba por las fotos reales alojadas en <code>reportes/imagenes/foto1.png</code> etc)</em></em></p>
-<h3>Asignaturas optativas y obligatorias-Licenciatura en Médico Cirujano - MOLIMOD</h3>
-<p><img src="https://via.placeholder.com/600x300.png?text=Evidencia+MOLIMOD+1" alt="Evidencia 1">
-<img src="https://via.placeholder.com/600x300.png?text=Evidencia+MOLIMOD+2" alt="Evidencia 2">
-<img src="https://via.placeholder.com/600x300.png?text=Evidencia+MOLIMOD+3" alt="Evidencia 3">
-<img src="https://via.placeholder.com/600x300.png?text=Evidencia+MOLIMOD+4" alt="Evidencia 4"></p>
+<h3>Educación continua</h3>
+<div class="probatorios-section">
+<div class="probatorios-grid">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/marzo/diplosuayed-1.png" alt="Evidencia 1">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/marzo/diplosuayed-2.png" alt="Evidencia 2">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/marzo/diplosuayed-3.png" alt="Evidencia 3">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/marzo/diplosuayed-4.png" alt="Evidencia 4">
+</div>
+<p class="probatorios-caption">Educación continua - Integración del diplomado &quot;Infección Pulmonar por Mycobacterium Tuberculosis en Personas Adultas&quot;</p>
+</div>
+<h3>Educación continua</h3>
+<div class="probatorios-section">
+<div class="probatorios-grid">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/marzo/diplosuayed-5.png" alt="Evidencia 1">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/marzo/diplosuayed-6.png" alt="Evidencia 2">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/marzo/diplosuayed-7.png" alt="Evidencia 3">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/marzo/diplosuayed-8.png" alt="Evidencia 4">
+</div>
+<p class="probatorios-caption">Educación continua - Correcciones del diplomado &quot;Infección Pulmonar por Mycobacterium Tuberculosis en Personas Adultas&quot;</p>
+</div>
+<h3>Ponte en línea</h3>
+<div class="probatorios-section">
+<div class="probatorios-grid">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/marzo/uapa-1.png" alt="Evidencia 1">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/marzo/uapa-2.png" alt="Evidencia 2">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/marzo/uapa-3.png" alt="Evidencia 3">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/marzo/uapa-4.png" alt="Evidencia 4">
+</div>
+<p class="probatorios-caption">Ponte en línea - UAPA - Contracción del Músculo Esquelético</p>
+</div>
 
         </section>
-
-        <!-- Salto de página forzado antes de las firmas, o mantenido junto al final, dependiendo del PDF -->
-        <div class="salto-pagina"></div>
 
         <footer>
             <div class="firmas-container">
