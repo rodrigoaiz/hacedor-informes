@@ -38,14 +38,15 @@ function procesarImagenes(contenidoMd, carpetaBase) {
  * Procesa el HTML de la sección PROBATORIOS para organizar las imágenes en un grid 2x2
  */
 function procesarProbatorios(htmlContent) {
-    // Buscar la sección PROBATORIOS y sus subsecciones hasta el final
-    const probatoriosRegex = /(<h2[^>]*>PROBATORIOS<\/h2>)([\s\S]*?)(<div class="salto-pagina">|$)/i;
+    // Buscar la sección PROBATORIOS y sus subsecciones hasta el final del documento
+    // o hasta que encuentre otro h2
+    const probatoriosRegex = /(<h2[^>]*>PROBATORIOS<\/h2>)([\s\S]*?)(?=<h2[^>]*>|$)/i;
     
     if (!probatoriosRegex.test(htmlContent)) {
         return htmlContent; // No hay sección PROBATORIOS
     }
     
-    return htmlContent.replace(probatoriosRegex, (match, h2Tag, contenido, finale) => {
+    return htmlContent.replace(probatoriosRegex, (match, h2Tag, contenido) => {
         // Procesar cada subsección (h3) que contiene imágenes
         const subseccionesConGrid = contenido.replace(
             /(<h3[^>]*>.*?<\/h3>)\s*<p>((?:<img[^>]+>\s*)+)<\/p>/gi,
@@ -90,7 +91,7 @@ function procesarProbatorios(htmlContent) {
             }
         );
         
-        return h2Tag + subseccionesConGrid + (finale || '');
+        return h2Tag + subseccionesConGrid;
     });
 }
 
@@ -163,8 +164,11 @@ async function generarReporte() {
         
         let htmlContent = marked.parse(contenidoConImagenesCorregidas);
         
-        // Procesar la sección PROBATORIOS para crear grid 2x2
+        // Procesar la sección PROBATORIOS para crear grid 2x2 ANTES de convertir comentarios
         htmlContent = procesarProbatorios(htmlContent);
+        
+        // Convertir comentarios de salto de página a divs con clase DESPUÉS de procesar PROBATORIOS
+        htmlContent = htmlContent.replace(/<!--\s*SALTO-PAGINA\s*-->/gi, '<div class="salto-pagina"></div>');
 
         console.log('3️⃣  Aplicando plantilla HTML...');
         let template = fs.readFileSync(templateHtmlPath, 'utf8');
@@ -255,9 +259,9 @@ async function generarReporte() {
             `,
             margin: {
                 top: '115px',     // Espacio para el header con logos
-                right: '15mm',
-                bottom: '20mm',   // Espacio para el footer con número de página
-                left: '15mm'
+                right: '12mm',
+                bottom: '12mm',   // Espacio para el footer con número de página
+                left: '12mm'
             }
         });
 

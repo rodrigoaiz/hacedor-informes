@@ -56,6 +56,20 @@ Eso es todo. El script automáticamente:
 
 📚 **Ver [GUIA-IMAGENES.md](GUIA-IMAGENES.md) para más detalles sobre cómo usar imágenes**
 
+### Saltos de página
+
+Para forzar un salto de página en el PDF, usa este comentario HTML en tu markdown:
+
+```markdown
+Contenido de la página 1...
+
+<!-- SALTO-PAGINA -->
+
+Contenido de la página 2...
+```
+
+El comentario es válido en Markdown y no rompe los estilos.
+
 ---
 
 ## � Formato del archivo Markdown
