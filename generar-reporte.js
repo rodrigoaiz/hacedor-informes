@@ -212,6 +212,15 @@ async function generarReporte() {
         fs.writeFileSync(outputHtmlPath, template);
 
         console.log('5️⃣  Generando PDF con Puppeteer...');
+        
+        // Convertir logos a base64 para usar en headerTemplate
+        const logoUnamBase64 = fs.existsSync(logoUnamPath) 
+            ? `data:image/png;base64,${fs.readFileSync(logoUnamPath).toString('base64')}`
+            : '';
+        const logoFacmedBase64 = fs.existsSync(logoFacmedPath)
+            ? `data:image/png;base64,${fs.readFileSync(logoFacmedPath).toString('base64')}`
+            : '';
+        
         const browser = await puppeteer.launch({
             headless: 'new',
             args: ['--no-sandbox', '--disable-setuid-sandbox']
@@ -225,16 +234,29 @@ async function generarReporte() {
             format: 'Letter',
             printBackground: true,
             displayHeaderFooter: true,
+            headerTemplate: `
+                <div style="width: 100%; margin: 0; padding: 5px 30px 10px 30px; border-bottom: 2px solid #1f3864; background: white; font-family: Arial, sans-serif;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+                        <img src="${logoUnamBase64}" style="width: 60px; height: auto; flex-shrink: 0;">
+                        <div style="flex: 1; text-align: center;">
+                            <p style="font-size: 7pt; font-weight: bold; text-transform: uppercase; margin: 1px 0; color: #1f3864;">UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</p>
+                            <p style="font-size: 6.5pt; font-weight: bold; text-transform: uppercase; margin: 1px 0; color: #1f3864;">FACULTAD DE MEDICINA</p>
+                            <p style="font-size: 6.5pt; font-weight: bold; text-transform: uppercase; margin: 1px 0; color: #1f3864;">SECRETARÍA DE UNIVERSIDAD ABIERTA Y EDUCACIÓN A DISTANCIA</p>
+                            <h1 style="font-size: 10pt; text-transform: uppercase; font-weight: bold; margin: 5px 0 0 0; padding-top: 5px; border-top: 1px solid #ccc;">INFORME DE ACTIVIDADES</h1>
+                        </div>
+                        <img src="${logoFacmedBase64}" style="width: 60px; height: auto; flex-shrink: 0;">
+                    </div>
+                </div>
+            `,
             footerTemplate: `
                 <div style="font-size: 9pt; color: #666; text-align: right; width: 100%; padding-right: 20px;">
                     <span class="pageNumber"></span> / <span class="totalPages"></span>
                 </div>
             `,
-            headerTemplate: '<div></div>', // Header vacío
             margin: {
-                top: '15mm',
+                top: '115px',     // Espacio para el header con logos
                 right: '15mm',
-                bottom: '20mm', // Espacio para el footer con número de página
+                bottom: '20mm',   // Espacio para el footer con número de página
                 left: '15mm'
             }
         });
