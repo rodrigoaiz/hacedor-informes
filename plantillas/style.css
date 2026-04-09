@@ -22,13 +22,52 @@ body {
 header {
     text-align: center;
     margin-bottom: 30px;
+    border-bottom: 2px solid #003366;
+    padding-bottom: 20px;
+}
+
+.header-logos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo-izquierdo,
+.logo-derecho {
+    width: 100px;
+    height: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.header-centro {
+    flex: 1;
+    text-align: center;
+}
+
+.header-linea1,
+.header-linea2,
+.header-linea3 {
+    font-size: 9pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 2px 0;
+    color: #003366;
+}
+
+.header-linea1 {
+    font-size: 10pt;
 }
 
 header h1 {
-    font-size: 18pt;
+    font-size: 16pt;
     text-transform: uppercase;
     font-weight: bold;
     color: #000;
+    margin-top: 15px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
 }
 
 /* Tabla de información general */

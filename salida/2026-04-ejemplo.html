@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte Mensual Abril 2026 - EJEMPLO</title>
+    <style>/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+    line-height: 1.6;
+    background-color: white; /* Para PDF */
+    font-size: 11pt;
+}
+
+.page-container {
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #003366;
+    padding-bottom: 20px;
+}
+
+.header-logos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo-izquierdo,
+.logo-derecho {
+    width: 100px;
+    height: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.header-centro {
+    flex: 1;
+    text-align: center;
+}
+
+.header-linea1,
+.header-linea2,
+.header-linea3 {
+    font-size: 9pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 2px 0;
+    color: #003366;
+}
+
+.header-linea1 {
+    font-size: 10pt;
+}
+
+header h1 {
+    font-size: 16pt;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #000;
+    margin-top: 15px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+/* Tabla de información general */
+.informacion-general {
+    margin-bottom: 40px;
+}
+
+.informacion-general table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.informacion-general th,
+.informacion-general td {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.informacion-general th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #000;
+    width: 40%;
+}
+
+/* Contenido Principal (Markdown convertido) */
+.contenido {
+    margin-bottom: 50px;
+}
+
+.contenido h2 {
+    font-size: 14pt;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    color: #222;
+}
+
+.contenido h3 {
+    font-size: 12pt;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #444;
+}
+
+.contenido p {
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+.contenido ul, .contenido ol {
+    margin-bottom: 15px;
+    padding-left: 20px;
+}
+
+.contenido li {
+    margin-bottom: 5px;
+}
+
+/* Imágenes dentro del contenido */
+.contenido img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Paginación - Importante para PDF */
+.salto-pagina {
+    page-break-before: always; 
+}
+
+/* Evitar que las imágenes o tablas se partan a la mitad */
+img, table, tr, td, th {
+    page-break-inside: avoid;
+}
+
+/* Firmas Container */
+footer {
+    margin-top: 60px;
+    page-break-inside: avoid; /* Mantener todo el footer junto en lo posible */
+}
+
+.firmas-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.firma-box {
+    width: 45%; /* Dos columnas para las dos primeras firmas */
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.firma-completa {
+    width: 100%; /* La última firma ocupa la fila completa, centrada */
+    padding-top: 5rem;
+}
+
+.linea-firma {
+    border-top: 1px solid #000;
+    width: 80%;
+    margin: 0 auto 10px auto;
+}
+
+.nombre-firma {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 10pt;
+    margin-bottom: 5px;
+}
+
+.cargo-firma {
+    font-size: 9pt;
+    color: #555;
+    text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+    <div class="page-container">
+        <header>
+            <div class="header-logos">
+                <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/assets/logos/logo-unam.png" alt="Logo UNAM" class="logo-izquierdo">
+                <div class="header-centro">
+                    <p class="header-linea1">UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</p>
+                    <p class="header-linea2">FACULTAD DE MEDICINA</p>
+                    <p class="header-linea3">SECRETARÍA DE UNIVERSIDAD ABIERTA Y EDUCACIÓN A DISTANCIA</p>
+                    <h1>INFORME DE ACTIVIDADES</h1>
+                </div>
+                <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/assets/logos/logo-facmed.png" alt="Logo Facultad de Medicina" class="logo-derecho">
+            </div>
+        </header>
+
+        <section class="informacion-general">
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Nombre</th>
+                        <td>Jesús Rodrigo Aizpuru Parra</td>
+                    </tr>
+                    <tr>
+                        <th>Correo</th>
+                        <td>integracion.suayed01@facmed.unam.mx</td>
+                    </tr>
+                    <tr>
+                        <th>Teléfono de contacto</th>
+                        <td>5536798958</td>
+                    </tr>
+                    <tr>
+                        <th>Nombre del jefe inmediato</th>
+                        <td>Joel Villamar Chulin</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha</th>
+                        <td>9 de abril de 2026</td>
+                    </tr>
+                    <tr>
+                        <th>Periodo a reportar</th>
+                        <td>1 de abril al 9 de abril de 2026</td>
+                    </tr>
+                    <tr>
+                        <th>RFC</th>
+                        <td>AIPJ840407V55</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="contenido">
+            <h2>DESCRIPCIÓN GENERAL DE ACTIVIDADES</h2>
+<p>Ejemplo de reporte mostrando cómo usar <strong>imágenes locales</strong> correctamente.</p>
+<h2>ACTIVIDADES REALIZADAS</h2>
+<h3>Proyecto Demo 1</h3>
+<p>Desarrollo de componentes web.</p>
+<ul>
+<li>Actividad 1: Diseño de interfaz</li>
+<li>Actividad 2: Implementación de código</li>
+<li>Actividad 3: Pruebas de calidad</li>
+</ul>
+<h3>Proyecto Demo 2</h3>
+<p>Integración de sistemas.</p>
+<ul>
+<li>Actividad 1: Análisis de requisitos</li>
+<li>Actividad 2: Desarrollo</li>
+<li>Actividad 3: Documentación</li>
+</ul>
+<h2>PROBATORIOS</h2>
+<h3>Cómo usar imágenes locales</h3>
+<p>Opción 1: <strong>Rutas relativas</strong> (recomendado)</p>
+<pre><code class="language-markdown">![Captura de pantalla](file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/captura1.png)
+</code></pre>
+<p>Opción 2: <strong>URLs externas</strong> (siempre funcionan, requieren internet)</p>
+<pre><code class="language-markdown">![Placeholder](https://via.placeholder.com/600x300.png?text=Mi+Evidencia)
+</code></pre>
+<h3>Ejemplos</h3>
+<p><strong>Imagen externa (placeholder):</strong>
+<img src="https://via.placeholder.com/600x300.png?text=Evidencia+1" alt="Evidencia placeholder"></p>
+<p><strong>Imagen local (ejemplo - coloca tus capturas reales en reportes/imagenes/):</strong>
+<img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/captura1.png" alt="Evidencia local"></p>
+<p><em>Nota: Para que las imágenes locales funcionen, colócalas en <code>reportes/imagenes/</code> y refiérelas como se muestra arriba.</em></p>
+
+        </section>
+
+        <!-- Salto de página forzado antes de las firmas, o mantenido junto al final, dependiendo del PDF -->
+        <div class="salto-pagina"></div>
+
+        <footer>
+            <div class="firmas-container">
+                <div class="firma-box">
+                    <div class="linea-firma"></div>
+                    <p class="nombre-firma">Mtro. Jesús Rodrigo Aizpuru Parra</p>
+                    <p class="cargo-firma">Diseño Web e Integración</p>
+                </div>
+                <div class="firma-box">
+                    <div class="linea-firma"></div>
+                    <p class="nombre-firma">Lic. Joel Villamar Chulin</p>
+                    <p class="cargo-firma">Coordinador de Diseño Web e Integración</p>
+                </div>
+                <div class="firma-box firma-completa">
+                    <div class="linea-firma"></div>
+                    <p class="nombre-firma">Dra. Lilia Macedo de la Concha</p>
+                    <p class="cargo-firma">Secretaria SUAYED</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

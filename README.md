@@ -1,86 +1,136 @@
 # Generador de informes mensuales
 
-Genera informes de actividades desde un archivo Markdown estructurado y produce:
-- HTML listo para revisar.
-- PDF tamaño carta automático (opcional), usando Google Chrome headless.
+Genera informes de actividades desde un archivo Markdown estructurado y produce automáticamente HTML y PDF tamaño carta.
 
-## Requisitos
-- Python 3.10+
-- Para PDF: Google Chrome (`google-chrome-stable`) recomendado
-- LibreOffice (`soffice`) como fallback si no hay Chrome
+## 🚀 Uso rápido
 
-## Estructura
-- `scripts/generar_reporte.py`: script principal.
-- `plantillas/reporte-mensual.md`: plantilla base para nuevos reportes.
-- `datos/reporte-febrero-2026.md`: ejemplo con tus datos.
-- `assets/logos/`: logos para cabecera.
-- `evidencias/`: carpeta sugerida para imágenes probatorias.
-- `salida/`: carpeta donde se guarda HTML/PDF.
+**Ver reportes disponibles:**
 
-## Uso
-Generar solo HTML:
 ```bash
-python3 scripts/generar_reporte.py datos/reporte-febrero-2026.md -o salida/reporte-febrero-2026.html
+npm run listar
 ```
 
-Generar HTML + PDF carta:
+**Generar un reporte es super simple:**
+
+```bash
+npm run generar 2026-02
+```
+
+También funciona con búsquedas parciales:
+
+```bash
+npm run generar 02    # Busca 2026-02
+npm run generar 03    # Busca 2026-03
+```
+
+**Ver el reporte generado:**
+
+```bash
+npm run ver 2026-02   # Abre el PDF en tu visor
+```
+
+Eso es todo. El script automáticamente:
+- ✅ Busca el archivo en la carpeta `reportes/`
+- ✅ Incluye los logos institucionales en la cabecera
+- ✅ Genera HTML y PDF
+- ✅ Los guarda en `salida/`
+
+## 📋 Requisitos
+- Node.js 16+
+- Las dependencias se instalan con: `npm install`
+
+## 📁 Estructura
+- `reportes/`: Coloca aquí tus archivos `.md` de reportes mensuales
+- `plantillas/`: Plantillas HTML y CSS para el formato
+- `assets/logos/`: Logos institucionales (UNAM y FACMED) - aparecen automáticamente en cada reporte
+- `salida/`: Aquí se generan los reportes HTML y PDF
+
+## 📝 Crear un nuevo reporte
+
+1. Crea un archivo en `reportes/`, ejemplo: `reportes/2026-04.md`
+2. Usa el formato con frontmatter YAML (ver ejemplo en `reportes/2026-02.md`)
+3. Coloca tus capturas/evidencias en `reportes/imagenes/`
+4. Referencia las imágenes en el Markdown: `![Descripción](imagenes/captura1.png)`
+5. Genera con: `npm run generar 2026-04`
+
+📚 **Ver [GUIA-IMAGENES.md](GUIA-IMAGENES.md) para más detalles sobre cómo usar imágenes**
+
+---
+
+## � Formato del archivo Markdown
+
+Los reportes usan **frontmatter YAML** al inicio para los datos, seguido de Markdown normal:
+
+```markdown
+---
+titulo: "Reporte Mensual Febrero 2026"
+nombre: "Jesús Rodrigo Aizpuru Parra"
+correo: "integracion.suayed01@facmed.unam.mx"
+telefono: "5536798958"
+jefe: "Joel Villamar Chulin"
+fecha: "2 de marzo de 2026"
+periodo: "1 de febrero al 28 de febrero de 2026"
+rfc: "AIPJ840407V55"
+nombre_firma_1: "Mtro. Jesús Rodrigo Aizpuru Parra"
+cargo_firma_1: "Diseño Web e Integración"
+nombre_firma_2: "Lic. Joel Villamar Chulin"
+cargo_firma_2: "Coordinador de Diseño Web e Integración"
+nombre_firma_3: "Dra. Lilia Macedo de la Concha"
+cargo_firma_3: "Secretaria SUAYED"
+---
+
+## DESCRIPCIÓN GENERAL DE ACTIVIDADES
+Tu descripción general aquí...
+
+## ACTIVIDADES REALIZADAS
+
+### Nombre del Proyecto 1
+Descripción y detalles del proyecto.
+* Actividad 1
+* Actividad 2
+
+### Nombre del Proyecto 2
+Otro proyecto...
+```
+
+Ver `reportes/2026-02.md` como ejemplo completo.
+
+---
+
+## 🔧 Modo avanzado (opcional)
+
+Si prefieres usar Python (sistema legacy):
+
 ```bash
 python3 scripts/generar_reporte.py datos/reporte-febrero-2026.md -o salida/reporte-febrero-2026.html --pdf
 ```
 
-Definir nombre de PDF:
-```bash
-python3 scripts/generar_reporte.py datos/reporte-febrero-2026.md -o salida/reporte-febrero-2026.html --pdf --pdf-output salida/febrero-2026-carta.pdf
-```
-
-Con `make` (atajo recomendado):
+O con Make:
 ```bash
 make reporte DATA=datos/reporte-febrero-2026.md
 ```
 
-## Formato del Markdown
-```md
-# INFORME DE ACTIVIDADES
+**Nota:** El sistema Python usa un formato diferente (ver `datos/reporte-febrero-2026.md`).
 
-## CABECERA
-Linea 1: UNIVERSIDAD NACIONAL AUTONOMA DE MEXICO
-Linea 2: FACULTAD DE MEDICINA
-Linea 3: SECRETARIA DE UNIVERSIDAD ABIERTA Y EDUCACION A DISTANCIA
-Logo izquierdo: ../assets/logos/logo-unam.png
-Logo derecho: ../assets/logos/logo-facmed.jpg
+---
 
-## DATOS
-Nombre: ...
-Correo: ...
-...
+## 🎨 Personalización
 
-## DESCRIPCION GENERAL
-Texto libre.
+### Cambiar los logos institucionales
 
-## PROYECTOS
-### Nombre del proyecto
-- Actividad 1
-- Actividad 2
-Probatorio: ../evidencias/proyecto/probatorio-1.png
-Probatorio: ../evidencias/proyecto/probatorio-2.png
-Probatorio: ../evidencias/proyecto/probatorio-3.png
-Probatorio: ../evidencias/proyecto/probatorio-4.png
+Los logos se cargan automáticamente desde `assets/logos/`:
+- `logo-unam.png` - Logo izquierdo
+- `logo-facmed.png` - Logo derecho
 
-## FIRMAS
-NOMBRE 1 | CARGO 1
-NOMBRE 2 | CARGO 2
-NOMBRE 3 | CARGO 3
-```
+Para cambiarlos, simplemente reemplaza estos archivos con tus propios logos (mantén los nombres).
 
-## Reglas de validación
-- Cada proyecto debe tener **exactamente 4** líneas `Probatorio:`.
-- Debe existir al menos una firma.
-- Si usas logos/rutas relativas, se resuelven respecto al `.md` fuente.
+**Recomendaciones:**
+- Formato: PNG con fondo transparente
+- Tamaño: ~500x500 pixels
+- El script los redimensiona automáticamente a 100px de ancho
 
-## Notas de paginado
-- El PDF se genera en tamaño carta (`@page size: Letter`).
-- La cabecera con logos se imprime en todas las páginas.
-- La sección de probatorios se pagina en bloques de 2 proyectos (8 imágenes por página).
-- Cada bloque de probatorios por proyecto (4 imágenes) se mantiene unido y no se divide entre páginas.
-- Las firmas se marcan para evitar salto de página aislado; en reportes muy largos puede requerir ajuste fino de contenido/márgenes.
-- Si Chrome no está disponible, se usa LibreOffice y puede salir en A4 según configuración local.
+### Personalizar el diseño
+
+Puedes modificar:
+- `plantillas/template.html` - Estructura del documento
+- `plantillas/style.css` - Estilos, colores, tipografía

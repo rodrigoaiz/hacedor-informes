@@ -4,6 +4,9 @@
   "description": "Genera informes de actividades desde un archivo Markdown estructurado y produce: - HTML listo para revisar. - PDF tamaño carta automático (opcional) usando LibreOffice.",
   "main": "index.js",
   "scripts": {
+    "generar": "node generar-reporte.js",
+    "listar": "node listar-reportes.js",
+    "ver": "node ver-reporte.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
