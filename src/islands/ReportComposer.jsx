@@ -27,9 +27,9 @@ const seedProject = () => ({
 
 const seedReport = {
   titulo: 'Reporte Mensual',
-  nombre: 'Jesús Rodrigo Aizpuru Parra',
-  correo: 'integracion.suayed01@facmed.unam.mx',
-  telefono: '5536798958',
+  nombre: '',
+  correo: '',
+  telefono: '',
   jefe: 'Joel Villamar Chulin',
   fecha: new Date().toLocaleDateString('es-MX', {
     day: 'numeric',
@@ -37,10 +37,10 @@ const seedReport = {
     year: 'numeric',
   }),
   periodo: '',
-  rfc: 'AIPJ840407V55',
+  rfc: '',
   descripcionGeneral: '',
   firmas: [
-    { nombre: 'Mtro. Jesús Rodrigo Aizpuru Parra', cargo: 'Diseño Web e Integración' },
+    { nombre: '', cargo: '' },
     { nombre: 'Lic. Joel Villamar Chulin', cargo: 'Coordinador de Diseño Web e Integración' },
     { nombre: 'Dra. Lilia Macedo de la Concha', cargo: 'Secretaria SUAYED' },
   ],
