@@ -14,22 +14,33 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     color: #333;
-    line-height: 1.6;
-    background-color: white; /* Para PDF */
-    font-size: 11pt;
+    line-height: 1.5;
+    background-color: white;
+    font-size: 10pt;
 }
 
 .page-container {
-    padding: 40px;
+    padding: 30px;
     max-width: 800px;
     margin: 0 auto;
 }
 
 header {
     text-align: center;
-    margin-bottom: 30px;
-    border-bottom: 2px solid #003366;
-    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #1f3864;
+    padding-bottom: 15px;
+}
+
+/* Ocultar header en PDF ya que usa headerTemplate */
+@media print {
+    header {
+        display: none;
+    }
+    
+    .page-container {
+        padding: 15px 20px;
+    }
 }
 
 .header-logos {
@@ -41,7 +52,7 @@ header {
 
 .logo-izquierdo,
 .logo-derecho {
-    width: 100px;
+    width: 80px;
     height: auto;
     object-fit: contain;
     flex-shrink: 0;
@@ -55,30 +66,30 @@ header {
 .header-linea1,
 .header-linea2,
 .header-linea3 {
-    font-size: 9pt;
+    font-size: 8pt;
     font-weight: bold;
     text-transform: uppercase;
     margin: 2px 0;
-    color: #003366;
+    color: #1f3864;
 }
 
 .header-linea1 {
-    font-size: 10pt;
+    font-size: 9pt;
 }
 
 header h1 {
-    font-size: 16pt;
+    font-size: 14pt;
     text-transform: uppercase;
     font-weight: bold;
     color: #000;
-    margin-top: 15px;
+    margin-top: 10px;
     border-top: 1px solid #ccc;
-    padding-top: 10px;
+    padding-top: 8px;
 }
 
 /* Tabla de información general */
 .informacion-general {
-    margin-bottom: 40px;
+    margin-bottom: 15px;
 }
 
 .informacion-general table {
@@ -88,51 +99,59 @@ header h1 {
 
 .informacion-general th,
 .informacion-general td {
-    padding: 8px 12px;
-    border: 1px solid #ccc;
+    padding: 6px 10px;
+    border: 1px solid #1f3864;
     text-align: left;
 }
 
 .informacion-general th {
-    background-color: #f2f2f2;
+    background-color: #1f3864;
     font-weight: bold;
-    color: #000;
+    color: white;
     width: 40%;
+}
+
+.informacion-general td {
+    background-color: white;
+    color: #333;
 }
 
 /* Contenido Principal (Markdown convertido) */
 .contenido {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 .contenido h2 {
-    font-size: 14pt;
-    margin-top: 25px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 5px;
-    color: #222;
+    font-size: 13pt;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    background-color: #1f3864;
+    color: white;
+    padding: 8px 12px;
+    border-bottom: none;
 }
 
 .contenido h3 {
-    font-size: 12pt;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    color: #444;
+    font-size: 10.5pt;
+    margin-top: 8px;
+    margin-bottom: 5px;
+    background-color: #1f3864;
+    color: white;
+    padding: 6px 10px;
 }
 
 .contenido p {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     text-align: justify;
 }
 
 .contenido ul, .contenido ol {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     padding-left: 20px;
 }
 
 .contenido li {
-    margin-bottom: 5px;
+    margin-bottom: 3px;
 }
 
 /* Imágenes dentro del contenido */
@@ -140,9 +159,50 @@ header h1 {
     max-width: 100%;
     height: auto;
     display: block;
-    margin: 20px auto;
+    margin: 3px auto;
     border: 1px solid #ddd;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Grid 2x2 para probatorios */
+.probatorios-section {
+    margin: 5px 0;
+    page-break-inside: avoid;
+}
+
+.probatorios-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    margin-bottom: 0;
+}
+
+.probatorios-grid img {
+    width: 100%;
+    height: 130px;
+    max-height: 130px;
+    object-fit: cover;
+    object-position: center;
+    border: 1px solid #ddd;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    display: block;
+    overflow: hidden;
+}
+
+.probatorios-caption {
+    text-align: center;
+    font-size: 8.5pt;
+    color: #666;
+    padding: 5px 8px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-top: none;
+    font-style: italic;
+    margin-top: 0;
+    margin-bottom: 5px;
+    page-break-after: avoid;
+    display: block;
+    width: 100%;
 }
 
 /* Paginación - Importante para PDF */
@@ -155,45 +215,59 @@ img, table, tr, td, th {
     page-break-inside: avoid;
 }
 
-/* Firmas Container */
+/* Firmas Container - SIEMPRE junto al último probatorio */
 footer {
-    margin-top: 60px;
-    page-break-inside: avoid; /* Mantener todo el footer junto en lo posible */
+    margin-top: 50px;
+    page-break-before: avoid !important;
+    page-break-inside: avoid !important;
+}
+
+/* Asegurar que el último probatorio y las firmas estén juntos */
+.contenido {
+    page-break-after: avoid !important;
+}
+
+/* Evitar salto de página antes del footer */
+h2, h3 {
+    page-break-after: avoid;
+}
+
+.probatorios-section:last-of-type {
+    page-break-after: avoid !important;
 }
 
 .firmas-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 40px;
+    gap: 30px;
 }
 
 .firma-box {
     width: 45%; /* Dos columnas para las dos primeras firmas */
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .firma-completa {
     width: 100%; /* La última firma ocupa la fila completa, centrada */
-    padding-top: 5rem;
 }
 
 .linea-firma {
     border-top: 1px solid #000;
     width: 80%;
-    margin: 0 auto 10px auto;
+    margin: 0 auto 8px auto;
 }
 
 .nombre-firma {
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 10pt;
-    margin-bottom: 5px;
+    font-size: 9.5pt;
+    margin-bottom: 4px;
 }
 
 .cargo-firma {
-    font-size: 9pt;
+    font-size: 8.5pt;
     color: #555;
     text-transform: uppercase;
 }
@@ -296,16 +370,18 @@ footer {
 </ul>
 <h2>PROBATORIOS</h2>
 <p><em><em>(Sustituye estas URLs de prueba por las fotos reales alojadas en <code>reportes/imagenes/foto1.png</code> etc)</em></em></p>
-<h3>Asignaturas optativas y obligatorias-Licenciatura en Médico Cirujano - MOLIMOD</h3>
-<p><img src="https://via.placeholder.com/600x300.png?text=Evidencia+MOLIMOD+1" alt="Evidencia 1">
-<img src="https://via.placeholder.com/600x300.png?text=Evidencia+MOLIMOD+2" alt="Evidencia 2">
-<img src="https://via.placeholder.com/600x300.png?text=Evidencia+MOLIMOD+3" alt="Evidencia 3">
-<img src="https://via.placeholder.com/600x300.png?text=Evidencia+MOLIMOD+4" alt="Evidencia 4"></p>
+<h3>Asignaturas optativas y obligatorias-Licenciatura en Médico Cirujano</h3>
+<div class="probatorios-section">
+<div class="probatorios-grid">
+  <img src="https://via.placeholder.com/600x300.png?text=Evidencia+MOLIMOD+1" alt="Evidencia 1">
+  <img src="https://via.placeholder.com/600x300.png?text=Evidencia+MOLIMOD+2" alt="Evidencia 2">
+  <img src="https://via.placeholder.com/600x300.png?text=Evidencia+MOLIMOD+3" alt="Evidencia 3">
+  <img src="https://via.placeholder.com/600x300.png?text=Evidencia+MOLIMOD+4" alt="Evidencia 4">
+</div>
+<p class="probatorios-caption">Asignaturas optativas y obligatorias-Licenciatura en Médico Cirujano - MOLIMOD</p>
+</div>
 
         </section>
-
-        <!-- Salto de página forzado antes de las firmas, o mantenido junto al final, dependiendo del PDF -->
-        <div class="salto-pagina"></div>
 
         <footer>
             <div class="firmas-container">

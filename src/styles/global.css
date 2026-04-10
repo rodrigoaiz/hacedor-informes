@@ -179,6 +179,31 @@ code {
   padding: 1.5rem 2rem;
 }
 
+.masthead-logos {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Convierte ambos logos al color teal institucional (#005d74) */
+.masthead-logo {
+  height: 3rem;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(28%) sepia(96%) saturate(1200%) hue-rotate(158deg);
+  opacity: 0.92;
+}
+
+@media (max-width: 767px) {
+  .masthead-logo {
+    height: 2.25rem;
+  }
+  .masthead-logos {
+    gap: 1rem;
+  }
+}
+
 .masthead-rule {
   width: 100%;
   height: 2px;
