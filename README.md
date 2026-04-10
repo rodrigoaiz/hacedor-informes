@@ -1,80 +1,81 @@
 # Generador de informes mensuales
 
-Genera informes de actividades desde un archivo Markdown estructurado y produce automáticamente HTML, PDF y DOCX.
+Herramienta interna para el área de Integración SUAYED · Facultad de Medicina, UNAM.  
+Permite generar informes mensuales de actividades con formato institucional en PDF, desde una interfaz web o desde la línea de comandos.
 
-## 🚀 Uso rápido
+---
 
-**Ver reportes disponibles:**
+## Webapp (modo recomendado)
+
+### Desarrollo
+
+```bash
+npm install
+npm run dev:webapp
+```
+
+- Frontend: http://localhost:4323
+- API: http://localhost:4324
+
+### Producción (Node.js directo)
+
+```bash
+npm run build      # Compila el frontend con Astro
+npm start          # Sirve frontend + API en el puerto 4324
+```
+
+### Producción con Docker
+
+```bash
+docker compose up --build
+```
+
+La app queda disponible en http://localhost:4324.
+
+Variables de entorno opcionales:
+
+| Variable    | Descripción                            | Default |
+|-------------|----------------------------------------|---------|
+| `PORT`      | Puerto del servidor                    | `4324`  |
+| `AUTH_USER` | Usuario para Basic Auth (opcional)     | —       |
+| `AUTH_PASS` | Contraseña para Basic Auth (opcional)  | —       |
+
+### Flujo de uso
+
+1. Abre la webapp en el navegador
+2. Completa el formulario: datos generales, descripción del mes, proyectos, actividades y probatorios (capturas de evidencia)
+3. Haz clic en **Generar PDF** — el archivo se descarga automáticamente con formato institucional
+
+---
+
+## CLI (modo alternativo)
+
+El CLI sigue funcionando de forma independiente a la webapp.
+
+**Listar reportes disponibles:**
 
 ```bash
 npm run listar
 ```
 
-**Generar un reporte es super simple:**
+**Generar un reporte desde archivo Markdown:**
 
 ```bash
 npm run generar 2026-02
+npm run generar 02      # búsqueda parcial
 ```
 
-También funciona con búsquedas parciales:
+**Ver el PDF generado:**
 
 ```bash
-npm run generar 02    # Busca 2026-02
-npm run generar 03    # Busca 2026-03
+npm run ver 2026-02
 ```
 
-**Ver el reporte generado:**
+Los archivos generados quedan en `salida/`.
 
-```bash
-npm run ver 2026-02   # Abre el PDF en tu visor
-```
+### Formato del archivo Markdown
 
-Eso es todo. El script automáticamente:
-- ✅ Busca el archivo en la carpeta `reportes/`
-- ✅ Incluye los logos institucionales en la cabecera
-- ✅ Genera HTML, PDF y DOCX
-- ✅ Los guarda en `salida/`
-
-## 📋 Requisitos
-- Node.js 16+
-- Pandoc (para generación de DOCX)
-- Las dependencias se instalan con: `npm install`
-
-## 📁 Estructura
-- `reportes/`: Coloca aquí tus archivos `.md` de reportes mensuales
-- `plantillas/`: Plantillas HTML y CSS para el formato
-- `assets/logos/`: Logos institucionales (UNAM y FACMED) - aparecen automáticamente en cada reporte
-- `salida/`: Aquí se generan los reportes HTML y PDF
-
-## 📝 Crear un nuevo reporte
-
-1. Crea un archivo en `reportes/`, ejemplo: `reportes/2026-04.md`
-2. Usa el formato con frontmatter YAML (ver ejemplo en `reportes/2026-02.md`)
-3. Coloca tus capturas/evidencias en `reportes/imagenes/`
-4. Referencia las imágenes en el Markdown: `![Descripción](imagenes/captura1.png)`
-5. Genera con: `npm run generar 2026-04`
-
-📚 **Ver [GUIA-IMAGENES.md](GUIA-IMAGENES.md) para más detalles sobre cómo usar imágenes**
-
-### Saltos de página
-
-Para forzar un salto de página en el PDF, usa este comentario HTML en tu markdown:
-
-```markdown
-Contenido de la página 1...
-
-<!-- SALTO-PAGINA -->
-
-Contenido de la página 2...
-```
-
-El comentario es válido en Markdown y no rompe los estilos.
-
----
-
-## � Formato del archivo Markdown
-
-Los reportes usan **frontmatter YAML** al inicio para los datos, seguido de Markdown normal:
+Los reportes usan frontmatter YAML al inicio:
 
 ```markdown
 ---
@@ -99,53 +100,61 @@ Tu descripción general aquí...
 
 ## ACTIVIDADES REALIZADAS
 
-### Nombre del Proyecto 1
-Descripción y detalles del proyecto.
+### Nombre del Proyecto
 * Actividad 1
 * Actividad 2
 
-### Nombre del Proyecto 2
-Otro proyecto...
+## PROBATORIOS
+
+### Nombre del Proyecto
+
+![Descripción de la evidencia](imagenes/captura1.png)
 ```
 
 Ver `reportes/2026-02.md` como ejemplo completo.
 
----
+### Saltos de página
 
-## 🔧 Modo avanzado (opcional)
+```markdown
+Contenido de la página 1...
 
-Si prefieres usar Python (sistema legacy):
+<!-- SALTO-PAGINA -->
 
-```bash
-python3 scripts/generar_reporte.py datos/reporte-febrero-2026.md -o salida/reporte-febrero-2026.html --pdf
+Contenido de la página 2...
 ```
-
-O con Make:
-```bash
-make reporte DATA=datos/reporte-febrero-2026.md
-```
-
-**Nota:** El sistema Python usa un formato diferente (ver `datos/reporte-febrero-2026.md`).
 
 ---
 
-## 🎨 Personalización
+## Estructura del proyecto
 
-### Cambiar los logos institucionales
+```
+hace-reportes/
+├── src/                        # Frontend Astro + React
+│   ├── layouts/AppLayout.astro
+│   ├── pages/index.astro
+│   ├── islands/ReportComposer.jsx
+│   └── styles/global.css
+├── server/                     # API Express
+│   ├── index.js
+│   ├── routes/reports.js
+│   ├── middleware/
+│   └── services/report-service.js
+├── lib/report-engine/          # Motor de generación (compartido por CLI y API)
+│   ├── index.js
+│   └── schema.js
+├── plantillas/                 # Plantilla HTML y CSS del PDF institucional
+├── assets/logos/               # Logos UNAM y FACMED
+├── reportes/                   # Archivos .md para el CLI
+├── salida/                     # PDFs generados por el CLI
+├── Dockerfile
+├── docker-compose.yml
+└── generar-reporte.js          # Entrypoint del CLI
+```
 
-Los logos se cargan automáticamente desde `assets/logos/`:
-- `logo-unam.png` - Logo izquierdo
-- `logo-facmed.png` - Logo derecho
+## Requisitos
 
-Para cambiarlos, simplemente reemplaza estos archivos con tus propios logos (mantén los nombres).
+- Node.js 22+
+- Puppeteer (se instala con `npm install`; descarga Chromium automáticamente)
+- Docker (solo para el modo contenedor)
 
-**Recomendaciones:**
-- Formato: PNG con fondo transparente
-- Tamaño: ~500x500 pixels
-- El script los redimensiona automáticamente a 100px de ancho
-
-### Personalizar el diseño
-
-Puedes modificar:
-- `plantillas/template.html` - Estructura del documento
-- `plantillas/style.css` - Estilos, colores, tipografía
+Para el CLI: Pandoc es opcional (genera DOCX además de PDF si está disponible).

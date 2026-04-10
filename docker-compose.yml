@@ -1,0 +1,13 @@
+services:
+  app:
+    build: .
+    ports:
+      - "4324:4324"
+    environment:
+      - NODE_ENV=production
+      # Uncomment to enable basic auth:
+      # AUTH_USER=admin
+      # AUTH_PASS=changeme
+    restart: unless-stopped
+    # Chromium needs a shared memory workaround in Docker
+    shm_size: "256m"

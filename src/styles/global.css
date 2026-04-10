@@ -1,0 +1,278 @@
+@import "tailwindcss";
+
+:root {
+  --bg-page: oklch(0.95 0.012 200);
+  --surface: color-mix(in oklab, oklch(0.988 0.006 200) 94%, white);
+  --surface-alt: oklch(0.972 0.009 200);
+  --surface-muted: oklch(0.955 0.01 200);
+  --ink: oklch(0.29 0.025 220);
+  --ink-strong: oklch(0.21 0.03 220);
+  --ink-soft: oklch(0.48 0.018 215);
+  --ink-mute: oklch(0.64 0.012 210);
+  --accent: oklch(0.42 0.09 214);         /* #005d74 in oklch */
+  --accent-mid: oklch(0.52 0.08 214);     /* lighter teal for hover states */
+  --accent-strong: oklch(0.33 0.08 214);
+  --accent-soft: oklch(0.93 0.025 210);   /* very light teal tint */
+  --accent-subtle: oklch(0.96 0.015 208); /* barely-there teal for surfaces */
+  --line-soft: oklch(0.83 0.012 210 / 0.65);
+  --line-strong: oklch(0.72 0.022 210 / 0.75);
+  --line-accent: oklch(0.72 0.045 212 / 0.4);
+  --focus: color-mix(in oklab, var(--accent) 14%, white);
+  --success-bg: oklch(0.94 0.04 155);
+  --success-ink: oklch(0.38 0.08 155);
+  --error-bg: oklch(0.94 0.04 25);
+  --error-ink: oklch(0.42 0.1 27);
+  --shadow-panel: 0 16px 40px oklch(0.42 0.09 214 / 0.06), 0 2px 8px oklch(0.3 0.04 220 / 0.05);
+  --font-display: 'Marcellus', Georgia, serif;
+  --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
+}
+
+html {
+  font-family: var(--font-body);
+}
+
+body {
+  background:
+    radial-gradient(ellipse 60% 40% at 0% 0%, oklch(0.88 0.04 210 / 0.28), transparent 55%),
+    radial-gradient(ellipse 40% 30% at 100% 100%, oklch(0.88 0.03 215 / 0.14), transparent 50%),
+    linear-gradient(180deg, oklch(0.968 0.012 205) 0%, oklch(0.948 0.016 208) 100%);
+}
+
+code {
+  font-family: 'SFMono-Regular', Consolas, monospace;
+}
+
+/* ── Panels ── */
+
+.panel-surface {
+  @apply rounded-[1.15rem] border border-[var(--line-soft)] bg-[var(--surface)] p-5 shadow-[var(--shadow-panel)] md:p-6;
+  position: relative;
+  overflow: clip;
+}
+
+.panel-surface::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    var(--accent) 0%,
+    color-mix(in oklab, var(--accent) 50%, transparent) 28%,
+    transparent 68%
+  );
+  opacity: 0.7;
+}
+
+/* ── Section headings ── */
+
+.section-heading {
+  @apply mb-6 grid gap-2;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.eyebrow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.82;
+}
+
+.section-title {
+  @apply text-2xl leading-tight text-[var(--ink-strong)];
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
+
+.section-copy {
+  @apply max-w-[62ch] text-sm leading-7 text-[var(--ink-soft)];
+}
+
+/* ── Form elements ── */
+
+.field-label {
+  @apply text-sm font-semibold text-[var(--ink-strong)];
+}
+
+.field-hint {
+  @apply text-xs leading-5 text-[var(--ink-soft)];
+}
+
+.input-surface {
+  @apply w-full rounded-[0.75rem] border border-[var(--line-soft)] bg-white px-4 py-3 text-sm text-[var(--ink)] outline-none transition placeholder:text-[var(--ink-mute)];
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+}
+.input-surface:focus {
+  border-color: var(--accent);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 0 0 3px oklch(0.42 0.09 214 / 0.12);
+}
+
+/* ── Buttons ── */
+
+.action-button {
+  @apply rounded-[0.75rem] border border-[var(--line-accent)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition;
+  color: var(--accent);
+  background: var(--accent-subtle);
+}
+.action-button:hover {
+  background: var(--accent-soft);
+  border-color: color-mix(in oklab, var(--accent) 40%, transparent);
+}
+
+.icon-button {
+  @apply inline-flex h-11 w-11 items-center justify-center rounded-[0.75rem] border border-[var(--line-soft)] bg-white text-xl transition;
+  color: var(--ink-soft);
+}
+.icon-button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+.primary-button {
+  @apply rounded-[0.9rem] px-7 py-3.5 text-sm font-semibold uppercase tracking-[0.2em] text-white transition disabled:cursor-not-allowed disabled:opacity-55;
+  background: var(--accent);
+  box-shadow: 0 8px 24px oklch(0.42 0.09 214 / 0.32), 0 2px 6px oklch(0.42 0.09 214 / 0.2);
+}
+.primary-button:not(:disabled):hover {
+  background: var(--accent-mid);
+  box-shadow: 0 10px 28px oklch(0.42 0.09 214 / 0.38), 0 2px 8px oklch(0.42 0.09 214 / 0.22);
+}
+
+/* ── Summary sidebar ── */
+
+.summary-row {
+  @apply flex items-center justify-between rounded-[0.85rem] border border-[var(--line-soft)] bg-[var(--surface-alt)] px-4 py-3.5 text-sm;
+  color: var(--ink-soft);
+}
+
+.summary-row strong {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent);
+  font-family: var(--font-body);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* ── Evidence cards ── */
+
+.thumbnail-shell {
+  @apply flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-[0.75rem] border transition;
+  border-color: oklch(0.42 0.09 214 / 0.25);
+  background: var(--accent-subtle);
+}
+.thumbnail-shell:not(:disabled):hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px oklch(0.42 0.09 214 / 0.1);
+  background: var(--accent-soft);
+}
+
+/* ── Masthead ── */
+
+.masthead {
+  @apply rounded-[1.15rem] border shadow-[var(--shadow-panel)];
+  background: color-mix(in oklab, white 82%, oklch(0.88 0.04 210));
+  border-color: oklch(0.78 0.04 210 / 0.4);
+  padding: 1.5rem 2rem;
+}
+
+.masthead-rule {
+  width: 100%;
+  height: 2px;
+  margin-bottom: 1.1rem;
+  background: linear-gradient(90deg,
+    var(--accent) 0%,
+    color-mix(in oklab, var(--accent) 40%, transparent) 40%,
+    transparent 75%
+  );
+}
+
+.masthead-kicker {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.78;
+}
+
+.masthead-title {
+  margin-top: 0.4rem;
+  color: var(--ink-strong);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.4vw, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: 0.015em;
+}
+
+.masthead-copy {
+  max-width: 34rem;
+  color: var(--ink-soft);
+  font-size: 0.97rem;
+  line-height: 1.75;
+}
+
+/* ── Institution strip ── */
+
+.institution-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.75rem;
+  color: var(--ink-mute);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+.institution-strip p {
+  border-top: 1px solid var(--line-accent);
+  padding-top: 0.75rem;
+  color: var(--ink-soft);
+}
+
+/* ── Project shell ── */
+
+.project-shell {
+  border-radius: 1rem;
+  position: relative;
+  border: 1px solid var(--line-soft);
+  background: var(--accent-subtle);
+  padding: 1.25rem;
+}
+@media (min-width: 768px) {
+  .project-shell { padding: 1.5rem; }
+}
+
+.project-shell-header {
+  @apply mb-4 flex flex-wrap items-center justify-between gap-3;
+}
+
+/* ── Misc ── */
+
+.soft-note {
+  @apply rounded-[0.85rem] border border-dashed px-4 py-5 text-sm leading-6;
+  border-color: var(--line-accent);
+  background: var(--accent-soft);
+  color: var(--ink-soft);
+}
+
+.status-panel {
+  @apply mt-4 rounded-[0.85rem] px-4 py-4 text-sm leading-6;
+}
+
+.status-idle {
+  background: var(--accent-subtle);
+  color: var(--accent);
+  border: 1px solid oklch(0.42 0.09 214 / 0.15);
+}
+
+@media (max-width: 767px) {
+  .masthead-copy {
+    max-width: 100%;
+  }
+  .masthead {
+    padding: 1.25rem 1.25rem;
+  }
+}

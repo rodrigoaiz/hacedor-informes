@@ -1,0 +1,26 @@
+---
+import AppLayout from '../layouts/AppLayout.astro';
+import ReportComposer from '../islands/ReportComposer.jsx';
+---
+
+<AppLayout title="Generador de Reportes SUAYED | Facultad de Medicina">
+  <main class="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-6 px-4 py-6 md:px-8 md:py-8">
+    <section class="masthead">
+      <div class="masthead-rule"></div>
+      <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <div class="min-w-0">
+          <p class="masthead-kicker">SUAYED · Facultad de Medicina</p>
+          <h1 class="masthead-title">Generador de reportes</h1>
+        </div>
+        <p class="masthead-copy">Captura el informe mensual y genera el PDF con formato institucional.</p>
+      </div>
+    </section>
+
+    <section class="institution-strip" aria-label="Contexto institucional">
+      <p>Uso interno para integracion, seguimiento y entrega de informes mensuales.</p>
+      <p>Formato orientado a revision administrativa y salida PDF institucional.</p>
+    </section>
+
+    <ReportComposer client:load />
+  </main>
+</AppLayout>
