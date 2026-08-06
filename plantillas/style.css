@@ -22,7 +22,6 @@ body {
 header {
     text-align: center;
     margin-bottom: 20px;
-    border-bottom: 2px solid #1f3864;
     padding-bottom: 15px;
 }
 
@@ -60,11 +59,10 @@ header {
 .header-linea1,
 .header-linea2,
 .header-linea3 {
-    font-size: 8pt;
+    font-size: 12pt;
     font-weight: bold;
     text-transform: uppercase;
     margin: 2px 0;
-    color: #1f3864;
 }
 
 .header-linea1 {
@@ -94,7 +92,7 @@ header h1 {
 .informacion-general th,
 .informacion-general td {
     padding: 6px 10px;
-    border: 1px solid #1f3864;
+    border: 1px solid #000000;
     text-align: left;
 }
 
@@ -105,6 +103,11 @@ header h1 {
     width: 40%;
 }
 
+.informacion-general th {
+    background-color: #1f3864;
+    text-align: center;
+    text-transform: uppercase;
+}
 .informacion-general td {
     background-color: white;
     color: #333;
@@ -123,15 +126,16 @@ header h1 {
     color: white;
     padding: 8px 12px;
     border-bottom: none;
+    text-align:center;
 }
 
 .contenido h3 {
     font-size: 10.5pt;
     margin-top: 8px;
     margin-bottom: 5px;
-    background-color: #1f3864;
-    color: white;
+    color: black;
     padding: 6px 10px;
+    font-weight: bold;
 }
 
 .contenido p {
