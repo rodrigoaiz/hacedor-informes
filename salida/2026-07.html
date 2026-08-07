@@ -231,6 +231,25 @@ header h1 {
 }
 
 /* Grid 2x2 para probatorios */
+.probatorios-item {
+    width: 100%;
+    margin: 0;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+.seccion-tabla tr.probatorios-row,
+.seccion-tabla tr.probatorios-row > td {
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+}
+
+/* Cada grupo contiene una cuadrícula fija de cuatro evidencias. */
+.seccion-tabla tr.probatorios-row:nth-child(2n + 3) {
+    break-before: page;
+    page-break-before: always;
+}
+
 .probatorios-section {
     margin: 5px 0;
     page-break-inside: avoid;
@@ -435,9 +454,9 @@ h2, h3 {
 <tfoot><tr><td class="seccion-tabla-cierre"></td></tr></tfoot>
 </table><table class="seccion-tabla">
 <thead><tr><th><h2>PROBATORIOS</h2></th></tr></thead>
-<tbody><tr><td><div class="seccion-tabla-contenido">
-<h3>Asignaturas optativas y obligatorias-Licenciatura en Médico Cirujano</h3>
+<tbody><tr class="probatorios-row"><td><article class="probatorios-item">
 <div class="probatorios-section">
+<h3>Asignaturas optativas y obligatorias-Licenciatura en Médico Cirujano</h3>
 <div class="probatorios-grid">
   <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/diplosuayed-01.png" alt="Evidencia 1">
   <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/diplosuayed-02.png" alt="Evidencia 2">
@@ -446,8 +465,10 @@ h2, h3 {
 </div>
 <p class="probatorios-caption">Asignaturas optativas y obligatorias-Licenciatura en Médico Cirujano - La Condición Humana en el Curso de Vida</p>
 </div>
-<h3>Ponte en line@</h3>
+</article></td></tr>
+<tr class="probatorios-row"><td><article class="probatorios-item">
 <div class="probatorios-section">
+<h3>Ponte en line@</h3>
 <div class="probatorios-grid">
   <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/uapa-01.png" alt="Evidencia 1">
   <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/uapa-02.png" alt="Evidencia 2">
@@ -456,10 +477,10 @@ h2, h3 {
 </div>
 <p class="probatorios-caption">Ponte en line@ - UAPA Cuarto Paso del Método Estadístico</p>
 </div>
-
-
-<h3>Ponte en line@</h3>
+</article></td></tr>
+<tr class="probatorios-row"><td><article class="probatorios-item">
 <div class="probatorios-section">
+<h3>Ponte en line@</h3>
 <div class="probatorios-grid">
   <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/uapa-05.png" alt="Evidencia 1">
   <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/uapa-06.png" alt="Evidencia 2">
@@ -468,7 +489,7 @@ h2, h3 {
 </div>
 <p class="probatorios-caption">Ponte en line@ - 18 UAPAs revisadas y corregidas</p>
 </div>
-</div></td></tr></tbody>
+</article></td></tr></tbody>
 <tfoot><tr><td class="seccion-tabla-cierre"></td></tr></tfoot>
 </table>
         </section>

@@ -225,6 +225,25 @@ header h1 {
 }
 
 /* Grid 2x2 para probatorios */
+.probatorios-item {
+    width: 100%;
+    margin: 0;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+.seccion-tabla tr.probatorios-row,
+.seccion-tabla tr.probatorios-row > td {
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+}
+
+/* Cada grupo contiene una cuadrícula fija de cuatro evidencias. */
+.seccion-tabla tr.probatorios-row:nth-child(2n + 3) {
+    break-before: page;
+    page-break-before: always;
+}
+
 .probatorios-section {
     margin: 5px 0;
     page-break-inside: avoid;
