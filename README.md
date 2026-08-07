@@ -113,6 +113,35 @@ Tu descripción general aquí...
 
 Ver `reportes/2026-02.md` como ejemplo completo.
 
+### Varios trabajos en un proyecto
+
+En `PROBATORIOS`, usa `###` una sola vez para el proyecto y `####` para cada trabajo con sus evidencias:
+
+```markdown
+## PROBATORIOS
+
+### Ponte en line@
+
+#### UAPA Cuarto Paso del Metodo Estadistico
+![Evidencia 1](imagenes/uapa-01.png)
+![Evidencia 2](imagenes/uapa-02.png)
+
+#### 18 UAPAs revisadas y corregidas
+![Evidencia 1](imagenes/uapa-03.png)
+![Evidencia 2](imagenes/uapa-04.png)
+```
+
+No uses `<!-- SALTO-PAGINA -->` entre el subtitulo `####` y sus imágenes; el generador mantiene cada grupo unido y decide el salto automáticamente.
+
+Para iniciar el siguiente trabajo en una página nueva, coloca el salto entre los dos grupos:
+
+```markdown
+<!-- SALTO-PAGINA -->
+
+#### Siguiente trabajo
+![Evidencia 1](imagenes/uapa-03.png)
+```
+
 ### Saltos de página
 
 ```markdown

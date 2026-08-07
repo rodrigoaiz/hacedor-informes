@@ -206,6 +206,13 @@ header h1 {
     font-weight: bold;
 }
 
+.contenido h4 {
+    font-size: 9.5pt;
+    margin: 4px 10px 6px;
+    color: black;
+    font-weight: bold;
+}
+
 .contenido p {
     margin-bottom: 10px;
     text-align: justify;
@@ -244,8 +251,8 @@ header h1 {
     page-break-inside: avoid !important;
 }
 
-/* Cada grupo contiene una cuadrícula fija de cuatro evidencias. */
-.seccion-tabla tr.probatorios-row:nth-child(2n + 3) {
+/* Los saltos manuales entre grupos se conservan al generar el PDF. */
+.seccion-tabla tr.probatorios-row--salto {
     break-before: page;
     page-break-before: always;
 }
@@ -478,16 +485,32 @@ h2, h3 {
 <p class="probatorios-caption">Ponte en line@ - UAPA Cuarto Paso del Método Estadístico</p>
 </div>
 </article></td></tr>
-<tr class="probatorios-row"><td><article class="probatorios-item">
+<tr class="probatorios-row probatorios-row--salto"><td><article class="probatorios-item salto-pagina-antes">
 <div class="probatorios-section">
-<h3>Ponte en line@</h3>
+<h3></h3>
 <div class="probatorios-grid">
   <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/uapa-05.png" alt="Evidencia 1">
   <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/uapa-06.png" alt="Evidencia 2">
   <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/uapa-07.png" alt="Evidencia 3">
   <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/uapa-08.png" alt="Evidencia 4">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/uapa-09.png" alt="Evidencia 5">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/uapa-10.png" alt="Evidencia 6">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/uapa-11.png" alt="Evidencia 7">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/uapa-12.png" alt="Evidencia 8">
 </div>
-<p class="probatorios-caption">Ponte en line@ - 18 UAPAs revisadas y corregidas</p>
+<p class="probatorios-caption"></p>
+</div>
+</article></td></tr>
+<tr class="probatorios-row probatorios-row--salto"><td><article class="probatorios-item salto-pagina-antes">
+<div class="probatorios-section">
+<h3>Ponte en line@</h3>
+<div class="probatorios-grid">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/uapa-13.png" alt="Evidencia 1">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/uapa-14.png" alt="Evidencia 2">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/uapa-15.png" alt="Evidencia 3">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/uapa-16.png" alt="Evidencia 4">
+</div>
+<p class="probatorios-caption">Ponte en line@ - 18 UAPA revisadas, corregidas y adaptadas a la plataforma web</p>
 </div>
 </article></td></tr></tbody>
 <tfoot><tr><td class="seccion-tabla-cierre"></td></tr></tfoot>

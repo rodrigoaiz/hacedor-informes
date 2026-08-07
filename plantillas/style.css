@@ -200,6 +200,13 @@ header h1 {
     font-weight: bold;
 }
 
+.contenido h4 {
+    font-size: 9.5pt;
+    margin: 4px 10px 6px;
+    color: black;
+    font-weight: bold;
+}
+
 .contenido p {
     margin-bottom: 10px;
     text-align: justify;
@@ -238,8 +245,8 @@ header h1 {
     page-break-inside: avoid !important;
 }
 
-/* Cada grupo contiene una cuadrícula fija de cuatro evidencias. */
-.seccion-tabla tr.probatorios-row:nth-child(2n + 3) {
+/* Los saltos manuales entre grupos se conservan al generar el PDF. */
+.seccion-tabla tr.probatorios-row--salto {
     break-before: page;
     page-break-before: always;
 }
