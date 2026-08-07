@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte Mensual Julio 2026</title>
+    <style>/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+    line-height: 1.5;
+    background-color: white;
+    font-size: 10pt;
+}
+
+.page-container {
+    padding: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+}
+
+/* Ocultar header en PDF ya que usa headerTemplate */
+@media print {
+    header {
+        display: none;
+    }
+    
+    .page-container {
+        padding: 15px 20px;
+    }
+}
+
+.header-logos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo-izquierdo,
+.logo-derecho {
+    width: 80px;
+    height: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.header-centro {
+    flex: 1;
+    text-align: center;
+}
+
+.header-linea1,
+.header-linea2,
+.header-linea3 {
+    font-size: 12pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 2px 0;
+}
+
+.header-linea1 {
+    font-size: 9pt;
+}
+
+header h1 {
+    font-size: 14pt;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #000;
+    margin-top: 10px;
+    border-top: 1px solid #ccc;
+    padding-top: 8px;
+}
+
+/* Tabla de información general */
+.informacion-general {
+    margin-bottom: 15px;
+}
+
+.informacion-general h1 {
+    font-size: 14pt;
+    line-height: 1.15;
+    margin: 8px 0 12px;
+    color: #1f3864;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.informacion-general table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.informacion-general th,
+.informacion-general td {
+    padding: 6px 10px;
+    border: 1px solid #000000;
+    text-align: left;
+}
+
+.informacion-general th {
+    background-color: #1f3864;
+    font-weight: bold;
+    color: white;
+    width: 40%;
+}
+
+.informacion-general th {
+    background-color: #1f3864;
+    text-align: center;
+    text-transform: uppercase;
+}
+.informacion-general td {
+    background-color: white;
+    color: #333;
+}
+
+/* Contenido Principal (Markdown convertido) */
+.contenido {
+    margin-bottom: 20px;
+}
+
+.contenido h2 {
+    font-size: 13pt;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    background-color: #1f3864;
+    color: white;
+    padding: 8px 12px;
+    border-bottom: none;
+    text-align:center;
+}
+
+.contenido h3 {
+    font-size: 10.5pt;
+    margin-top: 8px;
+    margin-bottom: 5px;
+    color: black;
+    padding: 6px 10px;
+    font-weight: bold;
+}
+
+.contenido p {
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+.contenido ul, .contenido ol {
+    margin-bottom: 10px;
+    padding-left: 20px;
+}
+
+.contenido li {
+    margin-bottom: 3px;
+}
+
+/* Imágenes dentro del contenido */
+.contenido img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 3px auto;
+    border: 1px solid #ddd;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Grid 2x2 para probatorios */
+.probatorios-section {
+    margin: 5px 0;
+    page-break-inside: avoid;
+}
+
+.probatorios-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    margin-bottom: 0;
+}
+
+.probatorios-grid img {
+    width: 100%;
+    height: 130px;
+    max-height: 130px;
+    object-fit: cover;
+    object-position: center;
+    border: 1px solid #ddd;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    display: block;
+    overflow: hidden;
+}
+
+.probatorios-caption {
+    text-align: center;
+    font-size: 8.5pt;
+    color: #666;
+    padding: 5px 8px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-top: none;
+    font-style: italic;
+    margin-top: 0;
+    margin-bottom: 5px;
+    page-break-after: avoid;
+    display: block;
+    width: 100%;
+}
+
+/* Paginación - Importante para PDF */
+.salto-pagina {
+    page-break-before: always; 
+}
+
+/* Evitar que las imágenes o tablas se partan a la mitad */
+img, table, tr, td, th {
+    page-break-inside: avoid;
+}
+
+/* Firmas Container - SIEMPRE junto al último probatorio */
+footer {
+    margin-top: 50px;
+    page-break-before: avoid !important;
+    page-break-inside: avoid !important;
+}
+
+/* Asegurar que el último probatorio y las firmas estén juntos */
+.contenido {
+    page-break-after: avoid !important;
+}
+
+/* Evitar salto de página antes del footer */
+h2, h3 {
+    page-break-after: avoid;
+}
+
+.probatorios-section:last-of-type {
+    page-break-after: avoid !important;
+}
+
+.firmas-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.firma-box {
+    width: 45%; /* Dos columnas para las dos primeras firmas */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.firma-completa {
+    width: 100%; /* La última firma ocupa la fila completa, centrada */
+}
+
+.linea-firma {
+    border-top: 1px solid #000;
+    width: 80%;
+    margin: 0 auto 8px auto;
+}
+
+.nombre-firma {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 9.5pt;
+    margin-bottom: 4px;
+}
+
+.cargo-firma {
+    font-size: 8.5pt;
+    color: #555;
+    text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+    <div class="page-container">
+        <header>
+            <div class="header-logos">
+                <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/assets/logos/logo-unam.png" alt="Logo UNAM" class="logo-izquierdo">
+                <div class="header-centro">
+                    <p class="header-linea1">UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</p>
+                    <p class="header-linea2">FACULTAD DE MEDICINA</p>
+                    <p class="header-linea3">SECRETARÍA DE UNIVERSIDAD ABIERTA Y EDUCACIÓN A DISTANCIA</p>
+                </div>
+                <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/assets/logos/logo-facmed.png" alt="Logo Facultad de Medicina" class="logo-derecho">
+            </div>
+        </header>
+        
+        <section class="informacion-general">
+            <h1>INFORME DE ACTIVIDADES</h1>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Nombre</th>
+                        <td><strong>Jesús Rodrigo Aizpuru Parra</strong></td>
+                    </tr>
+                    <tr>
+                        <th>Correo</th>
+                        <td>integracion.suayed01@facmed.unam.mx</td>
+                    </tr>
+                    <tr>
+                        <th>Teléfono de contacto</th>
+                        <td>5536798958</td>
+                    </tr>
+                    <tr>
+                        <th>Nombre del jefe inmediato</th>
+                        <td>Joel Villamar Chulin</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha</th>
+                        <td>3 de agosto de 2026</td>
+                    </tr>
+                    <tr>
+                        <th>Periodo a reportar</th>
+                        <td>1 de julio al 31 de julio de 2026</td>
+                    </tr>
+                    <tr>
+                        <th>RFC</th>
+                        <td>AIPJ840407V55</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="contenido">
+            <h2>Concepto</h2>
+<p>Integración de recursos web para Unidades de Apoyo para el Aprendizaje, asignaturas optativas y obligatorias a distancia, con base en el presupuesto establecido para este fin en las Bases de Colaboración que se realizan entre la Coordinación de Universidad Abierta y Educación Digital (CUAED) y la Facultad de Medicina del 1 de julio al 31 de julio de 2026.</p>
+<h2>ACTIVIDADES REALIZADAS</h2>
+<h3>Asignaturas optativas y obligatorias-Licenciatura en Médico Cirujano</h3>
+<p>Cambios, correcciones y contenido añadido de la asignatura &quot;La Condición Humana en el Curso de Vida&quot; que incluye, desarrollo de contenido HTML para plataforma y producción audiovisual.</p>
+<ul>
+<li>Cambio, actualización y adición de contenido HTML en repositorio GitHub (1 cambio).</li>
+<li>Ajuste en producción audiovisual.</li>
+</ul>
+<div class="salto-pagina"></div>
+
+<h3>Ponte en line@</h3>
+<p>Cambios, correcciones y contenido añadido de la UAPA La Síntesis como Cuarto Paso del Método Estadístico, adecuación y edición de recursos de plataforma (CUAED) para versiones web de la UAPA.</p>
+<ul>
+<li>Cambio, actualización y adición de contenido HTML en repositorio GitHub (1 cambio).</li>
+<li>Ajuste en producción audiovisual.</li>
+</ul>
+<p>Cambios, correcciones y contenido añadido a través del uso de agentes de inteligencia artificial y scripts especificos, en la siguiente lista de UAPA: El cerebro adicto, Ciclo Biológico de Gnathostoma spp, Ciclo Biológico de Strongyloides stercoralis, Los Clásicos de la Epidemiología: Estudios Transversales, Columna Vertebral, Construcción de Plan de Vida, Enfermedades Auditivas de Origen Laboral Inducidas por Ruido, Estilo de Vida, Exploración Neurológica Básica: Estado de Alerta y Funciones Cerebrales Superiores, Fosas Extracraneales, Gluconeogénesis, Interpretación de Gráficos de Metaanálisis, Introducción a la Causalidad, Neuroanatomía del nervio trigémino, Promoción de la Salud y Prevención de la Enfermedad en Mujeres y Hombres Adultos, Técnicas de la Metodología Cualitativa, Ciclo Biológico de Toxoplasma gondii y Vigilancia Epidemiológica en México.</p>
+<ul>
+<li><em>Revisión técnica general</em>: se revisaron 18 UAPAs en HTML, CSS, JavaScript, actividades interactivas, rutas y recursos embebidos. (18 UAPAs)</li>
+<li><em>Correcciones responsivas</em>: se incorporaron reglas para adaptar imágenes, videos, tablas, iframes y contenedores, además de corregir márgenes y desbordamientos horizontales. (9 UAPAs y 11 hojas CSS nuevas)</li>
+<li><em>Adaptación de la barra de herramientas</em>: se ajustó #tools para conservar botones táctiles grandes y convertirse en una barra inferior en dispositivos móviles. (9 UAPAs)</li>
+<li><em>Corrección del footer y contenedores</em>: se normalizaron anchos, márgenes, paddings y floats para evitar desbordamientos y superposición con la barra móvil. (9 UAPAs)</li>
+<li><em>Corrección de hotspots y mapas interactivos</em>: se reorganizaron los lienzos, marcadores y áreas táctiles para mantener su alineación con las imágenes en diferentes resoluciones. (4 UAPAs)</li>
+<li><em>Mejoras de accesibilidad en hotspots</em>: se incorporaron botones reales, foco visible, áreas táctiles mínimas de 44 × 44 px, cierre mediante botón, clic exterior y tecla Esc. (2 UAPAs)</li>
+<li><em>Mejoras en acordeones y pestañas</em>: se sincronizaron los estados aria-expanded, aria-hidden y aria-selected, además de agregar soporte para teclado. (3 UAPAs)</li>
+<li><em>Corrección de carruseles</em>: se ajustaron las alturas dinámicas, los controles visibles, el comportamiento táctil y la adaptación de imágenes. (3 UAPAs)</li>
+<li><em>Ajuste de iframes</em>: se implementó el cálculo automático de altura mediante ResizeObserver para evitar espacios vacíos y desplazamientos internos. (2 UAPAs)</li>
+<li><em>Configuración de intentos</em>: se revisó el parámetro maxIntentos; se identificaron 33 configuraciones con valor 99 distribuidas en 17 UAPAs.</li>
+<li><em>Actualización de identidad institucional</em>: se normalizó la denominación visible a CUAED y se eliminaron referencias activas a nombres institucionales anteriores. (18 UAPAs)</li>
+<li><em>Limpieza y optimización de archivos</em>: se retiraron archivos de desarrollo, medios de demostración, mapas de código, duplicados y metadatos de macOS. También se optimizaron imágenes. (1 UAPA con limpieza documentada completamente)</li>
+<li><em>Creación de respaldos técnicos</em>: se conservaron copias de seguridad de archivos sweetalert.css antes de aplicar cambios. (4 UAPAs)</li>
+</ul>
+<h2>PROBATORIOS</h2>
+<h3>Asignaturas optativas y obligatorias-Licenciatura en Médico Cirujano</h3>
+<div class="probatorios-section">
+<div class="probatorios-grid">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/diplosuayed-01.png" alt="Evidencia 1">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/diplosuayed-02.png" alt="Evidencia 2">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/diplosuayed-03.png" alt="Evidencia 3">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/diplosuayed-04.png" alt="Evidencia 4">
+</div>
+<p class="probatorios-caption">Asignaturas optativas y obligatorias-Licenciatura en Médico Cirujano - La Condición Humana en el Curso de Vida</p>
+</div>
+<h3>Ponte en line@</h3>
+<div class="probatorios-section">
+<div class="probatorios-grid">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/uapa-01.png" alt="Evidencia 1">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/uapa-02.png" alt="Evidencia 2">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/uapa-03.png" alt="Evidencia 3">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/julio/uapa-04.png" alt="Evidencia 4">
+</div>
+<p class="probatorios-caption">Ponte en line@ - UAPA Cuarto Paso del Método Estadístico</p>
+</div>
+<div class="salto-pagina"></div>
+
+<h3>Ponte en line@</h3>
+<div class="probatorios-section">
+<div class="probatorios-grid">
+  <img src="imagenes/julio/uapa-05.png" alt="Evidencia 1">
+  <img src="imagenes/julio/uapa-06.png" alt="Evidencia 2">
+  <img src="imagenes/julio/uapa-07.png" alt="Evidencia 3">
+  <img src="imagenes/julio/uapa-08.png" alt="Evidencia 4">
+</div>
+<p class="probatorios-caption">Ponte en line@ - 18 UAPAs revisadas y corregidas</p>
+</div>
+
+        </section>
+
+        <footer>
+            <div class="firmas-container">
+                <div class="firma-box">
+                    <div class="linea-firma"></div>
+                    <p class="nombre-firma">Mtro. Jesús Rodrigo Aizpuru Parra</p>
+                    <p class="cargo-firma">Diseño Web e Integración</p>
+                </div>
+                <div class="firma-box">
+                    <div class="linea-firma"></div>
+                    <p class="nombre-firma">Lic. Joel Villamar Chulin</p>
+                    <p class="cargo-firma">Coordinador de Diseño Web e Integración</p>
+                </div>
+                <div class="firma-box firma-completa">
+                    <div class="linea-firma"></div>
+                    <p class="nombre-firma">Dra. Lilia Macedo de la Concha</p>
+                    <p class="cargo-firma">Secretaria SUAYED</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

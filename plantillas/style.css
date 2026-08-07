@@ -84,6 +84,15 @@ header h1 {
     margin-bottom: 15px;
 }
 
+.informacion-general h1 {
+    font-size: 14pt;
+    line-height: 1.15;
+    margin: 8px 0 12px;
+    color: #1f3864;
+    text-align: center;
+    text-transform: uppercase;
+}
+
 .informacion-general table {
     width: 100%;
     border-collapse: collapse;
