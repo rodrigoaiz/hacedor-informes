@@ -165,6 +165,20 @@ header h1 {
     padding: 0 10px 8px;
 }
 
+.seccion-tabla tfoot {
+    display: table-footer-group;
+}
+
+.seccion-tabla .seccion-tabla-cierre {
+    height: 0;
+    min-height: 0;
+    padding: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid #000;
+    border-left: 0;
+}
+
 .seccion-tabla,
 .seccion-tabla tbody,
 .seccion-tabla tr,
@@ -263,7 +277,7 @@ img, table, tr, td, th {
 
 /* Firmas Container - SIEMPRE junto al último probatorio */
 footer {
-    margin-top: 50px;
+    margin-top: 100px;
     page-break-before: avoid !important;
     page-break-inside: avoid !important;
 }
