@@ -138,6 +138,45 @@ header h1 {
     text-align:center;
 }
 
+/* Cada seccion principal se presenta como una tabla de una sola columna. */
+.seccion-tabla {
+    width: 100%;
+    margin: 15px 0;
+    border-collapse: collapse;
+}
+
+.seccion-tabla,
+.seccion-tabla th,
+.seccion-tabla td {
+    border: 1px solid #000;
+}
+
+.contenido .seccion-tabla h2 {
+    margin: 0;
+    border: 0;
+}
+
+.seccion-tabla th {
+    padding: 0;
+    background-color: #1f3864;
+}
+
+.seccion-tabla td {
+    padding: 0 10px 8px;
+}
+
+.seccion-tabla,
+.seccion-tabla tbody,
+.seccion-tabla tr,
+.seccion-tabla td {
+    break-inside: auto;
+    page-break-inside: auto;
+}
+
+.seccion-tabla-contenido {
+    padding: 0;
+}
+
 .contenido h3 {
     font-size: 10.5pt;
     margin-top: 8px;
