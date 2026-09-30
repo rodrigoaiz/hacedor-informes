@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte mensual septiembre 2026</title>
+    <style>/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+    line-height: 1.5;
+    background-color: white;
+    font-size: 10pt;
+}
+
+.page-container {
+    padding: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+}
+
+/* Ocultar header en PDF ya que usa headerTemplate */
+@media print {
+    header {
+        display: none;
+    }
+    
+    .page-container {
+        padding: 15px 20px;
+    }
+}
+
+.header-logos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo-izquierdo,
+.logo-derecho {
+    width: 80px;
+    height: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.header-centro {
+    flex: 1;
+    text-align: center;
+}
+
+.header-linea1,
+.header-linea2,
+.header-linea3 {
+    font-size: 12pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 2px 0;
+}
+
+.header-linea1 {
+    font-size: 9pt;
+}
+
+header h1 {
+    font-size: 14pt;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #000;
+    margin-top: 10px;
+    border-top: 1px solid #ccc;
+    padding-top: 8px;
+}
+
+/* Tabla de información general */
+.informacion-general {
+    margin-bottom: 15px;
+}
+
+.informacion-general h1 {
+    font-size: 14pt;
+    line-height: 1.15;
+    margin: 8px 0 12px;
+    color: #1f3864;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.informacion-general table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.informacion-general th,
+.informacion-general td {
+    padding: 6px 10px;
+    border: 1px solid #000000;
+    text-align: left;
+}
+
+.informacion-general th {
+    background-color: #1f3864;
+    font-weight: bold;
+    color: white;
+    width: 40%;
+}
+
+.informacion-general th {
+    background-color: #1f3864;
+    text-align: center;
+    text-transform: uppercase;
+}
+.informacion-general td {
+    background-color: white;
+    color: #333;
+}
+
+/* Contenido Principal (Markdown convertido) */
+.contenido {
+    margin-bottom: 20px;
+}
+
+.contenido h2 {
+    font-size: 13pt;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    background-color: #1f3864;
+    color: white;
+    padding: 8px 12px;
+    border-bottom: none;
+    text-align:center;
+}
+
+/* Cada seccion principal se presenta como una tabla de una sola columna. */
+.seccion-tabla {
+    width: 100%;
+    margin: 15px 0;
+    border-collapse: collapse;
+}
+
+.seccion-tabla,
+.seccion-tabla th,
+.seccion-tabla td {
+    border: 1px solid #000;
+}
+
+.contenido .seccion-tabla h2 {
+    margin: 0;
+    border: 0;
+}
+
+.seccion-tabla th {
+    padding: 0;
+    background-color: #1f3864;
+}
+
+.seccion-tabla td {
+    padding: 0 10px 8px;
+}
+
+.seccion-tabla tfoot {
+    display: table-footer-group;
+}
+
+.seccion-tabla .seccion-tabla-cierre {
+    height: 0;
+    min-height: 0;
+    padding: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid #000;
+    border-left: 0;
+}
+
+.seccion-tabla,
+.seccion-tabla tbody,
+.seccion-tabla tr,
+.seccion-tabla td {
+    break-inside: auto;
+    page-break-inside: auto;
+}
+
+.seccion-tabla-contenido {
+    padding: 0;
+}
+
+.contenido h3 {
+    font-size: 10.5pt;
+    margin-top: 8px;
+    margin-bottom: 5px;
+    color: black;
+    padding: 6px 10px;
+    font-weight: bold;
+}
+
+.contenido h4 {
+    font-size: 9.5pt;
+    margin: 4px 10px 6px;
+    color: black;
+    font-weight: bold;
+}
+
+.contenido p {
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+.contenido ul, .contenido ol {
+    margin-bottom: 10px;
+    padding-left: 20px;
+}
+
+.contenido li {
+    margin-bottom: 3px;
+}
+
+/* Imágenes dentro del contenido */
+.contenido img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 3px auto;
+    border: 1px solid #ddd;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Grid 2x2 para probatorios */
+.probatorios-item {
+    width: 100%;
+    margin: 0;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+.seccion-tabla tr.probatorios-row,
+.seccion-tabla tr.probatorios-row > td {
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+}
+
+/* Los saltos manuales entre grupos se conservan al generar el PDF. */
+.seccion-tabla tr.probatorios-row--salto {
+    break-before: page;
+    page-break-before: always;
+}
+
+.probatorios-section {
+    margin: 5px 0;
+    page-break-inside: avoid;
+}
+
+.probatorios-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    margin-bottom: 0;
+}
+
+.probatorios-grid img {
+    width: 100%;
+    height: 130px;
+    max-height: 130px;
+    object-fit: cover;
+    object-position: center;
+    border: 1px solid #ddd;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    display: block;
+    overflow: hidden;
+}
+
+.probatorios-caption {
+    text-align: center;
+    font-size: 8.5pt;
+    color: #666;
+    padding: 5px 8px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-top: none;
+    font-style: italic;
+    margin-top: 0;
+    margin-bottom: 5px;
+    page-break-after: avoid;
+    display: block;
+    width: 100%;
+}
+
+/* Paginación - Importante para PDF */
+.salto-pagina {
+    page-break-before: always; 
+}
+
+/* Evitar que las imágenes o tablas se partan a la mitad */
+img, table, tr, td, th {
+    page-break-inside: avoid;
+}
+
+/* Firmas Container - SIEMPRE junto al último probatorio */
+footer {
+    margin-top: 100px;
+    page-break-before: avoid !important;
+    page-break-inside: avoid !important;
+}
+
+/* Asegurar que el último probatorio y las firmas estén juntos */
+.contenido {
+    page-break-after: avoid !important;
+}
+
+/* Evitar salto de página antes del footer */
+h2, h3 {
+    page-break-after: avoid;
+}
+
+.probatorios-section:last-of-type {
+    page-break-after: avoid !important;
+}
+
+.firmas-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.firma-box {
+    width: 45%; /* Dos columnas para las dos primeras firmas */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.firma-completa {
+    width: 100%; /* La última firma ocupa la fila completa, centrada */
+}
+
+.linea-firma {
+    border-top: 1px solid #000;
+    width: 80%;
+    margin: 0 auto 8px auto;
+}
+
+.nombre-firma {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 9.5pt;
+    margin-bottom: 4px;
+}
+
+.cargo-firma {
+    font-size: 8.5pt;
+    color: #555;
+    text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+    <div class="page-container">
+        <header>
+            <div class="header-logos">
+                <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/assets/logos/logo-unam.png" alt="Logo UNAM" class="logo-izquierdo">
+                <div class="header-centro">
+                    <p class="header-linea1">UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO</p>
+                    <p class="header-linea2">FACULTAD DE MEDICINA</p>
+                    <p class="header-linea3">SECRETARÍA DE UNIVERSIDAD ABIERTA Y EDUCACIÓN A DISTANCIA</p>
+                </div>
+                <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/assets/logos/logo-facmed.png" alt="Logo Facultad de Medicina" class="logo-derecho">
+            </div>
+        </header>
+        
+        <section class="informacion-general">
+            <h1>INFORME DE ACTIVIDADES</h1>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Nombre</th>
+                        <td><strong>Jesús Rodrigo Aizpuru Parra</strong></td>
+                    </tr>
+                    <tr>
+                        <th>Correo</th>
+                        <td>integracion.suayed01@facmed.unam.mx</td>
+                    </tr>
+                    <tr>
+                        <th>Teléfono de contacto</th>
+                        <td>5536798958</td>
+                    </tr>
+                    <tr>
+                        <th>Nombre del jefe inmediato</th>
+                        <td>Joel Villamar Chulin</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha</th>
+                        <td>1 de septiembre de 2026</td>
+                    </tr>
+                    <tr>
+                        <th>Periodo a reportar</th>
+                        <td>1 de septiembre al 30 de septiembre de 2026</td>
+                    </tr>
+                    <tr>
+                        <th>RFC</th>
+                        <td>AIPJ840407V55</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="contenido">
+            <table class="seccion-tabla">
+<thead><tr><th><h2>Concepto</h2></th></tr></thead>
+<tbody><tr><td><div class="seccion-tabla-contenido">
+<p>Integración de recursos web para Unidades de Apoyo para el Aprendizaje, asignaturas optativas y obligatorias a distancia, con base en el presupuesto establecido para este fin en las Bases de Colaboración que se realizan entre la Coordinación de Universidad Abierta y Educación Digital (CUAED) y la Facultad de Medicina del 1 de septiembre al 30 de septiembre de 2026.</p>
+</div></td></tr></tbody>
+<tfoot><tr><td class="seccion-tabla-cierre"></td></tr></tfoot>
+</table><table class="seccion-tabla">
+<thead><tr><th><h2>ACTIVIDADES REALIZADAS</h2></th></tr></thead>
+<tbody><tr><td><div class="seccion-tabla-contenido">
+<h3>Ponte en line@</h3>
+<p>Cambios, correcciones y contenido añadido de la UAPA &quot;Eje Hipotálamo-Hipófisis-Órgano Endocrino&quot; adecuación y edición de recursos de plataforma (CUAED) para versiones web de la UAPA.</p>
+<ul>
+<li>Cambio, actualización y adición de contenido HTML en repositorio GitHub (25 cambios).</li>
+<li>Corrección en datos de imágenes embebidos en UAPA. (8 imágenes).</li>
+<li>Ajuste en producción audiovisual.</li>
+<li>Ajuste en hojas de estilo CSS para correcta visualización en dispositivos móviles.</li>
+</ul>
+
+
+<p>Cambios, correcciones y contenido añadido de la UAPA &quot;Osteología&quot;, adecuación y edición de recursos de plataforma (CUAED) para versiones web de la UAPA.</p>
+<ul>
+<li>Cambio, actualización y adición de contenido HTML en repositorio GitHub (2 cambios).</li>
+<li>Corrección en datos de imágenes embebidos en UAPA. (1 imagen).</li>
+<li>Ajuste en producción audiovisual.</li>
+<li>Ajuste en hojas de estilo CSS para correcta visualización en dispositivos móviles.</li>
+</ul>
+<p>Cambios, correcciones y contenido añadido de la UAPA &quot;Funciones Secretoras del Aparato Digestivo&quot;, adecuación y edición de recursos de plataforma (CUAED) para versiones web de la UAPA.</p>
+<ul>
+<li>Cambio, actualización y adición de contenido HTML en repositorio GitHub (7 cambios).</li>
+<li>Corrección en datos de imágenes embebidos en UAPA. (1 imagen).</li>
+<li>Ajuste en producción audiovisual.</li>
+<li>Ajuste en hojas de estilo CSS para correcta visualización en dispositivos móviles.</li>
+</ul>
+
+
+<p>Cambios, correcciones y contenido añadido de la UAPA &quot;La Síntesis como Cuarto Paso del Método Estadístico&quot;, adecuación y edición de recursos de plataforma (CUAED) para versiones web de la UAPA.</p>
+<ul>
+<li>Cambio, actualización y adición de contenido HTML en repositorio GitHub (3 cambios).</li>
+<li>Ajuste en producción audiovisual.</li>
+<li>Ajuste en hojas de estilo CSS para correcta visualización en dispositivos móviles.</li>
+</ul>
+<h3>Programa de Liderazgo e Innovación Interprofesional en Salud (PLIIS)</h3>
+<p>Cambios, correcciones y contenido añadido a la unidad de aprendizaje “Innovación y Aplicación de la Tecnología” con la plataforma web que incluye, desarrollo de contenido HTML para plataforma y producción audiovisual.</p>
+<ul>
+<li>Cambio de actividades moodle y adición de contenido HTML. (4 actividades).</li>
+<li>Ajuste en contenido HTML de la unidad de aprendizaje para correcta visualización en dispositivos móviles.</li>
+<li>Corrección de inconsistencias en contenido HTML de la unidad de aprendizaje.</li>
+<li>Corrección en datos de imágenes embebidos en contenido HTML customizado. (1 imagen).</li>
+<li>Ajuste en producción audiovisual.</li>
+</ul>
+<p>Cambios, correcciones y contenido añadido a la unidad de aprendizaje “Liderazgo Transformacional en Salud” con la plataforma web que incluye, desarrollo de contenido HTML para plataforma y producción audiovisual.</p>
+<ul>
+<li>Cambio de actividades moodle y adición de contenido HTML. (2 actividades).</li>
+<li>Ajuste en contenido HTML de la unidad de aprendizaje para correcta visualización en dispositivos móviles.</li>
+<li>Corrección en datos de imágenes embebidos en contenido HTML customizado. (1 imagen).</li>
+<li>Ajuste en producción audiovisual.</li>
+</ul>
+</div></td></tr></tbody>
+<tfoot><tr><td class="seccion-tabla-cierre"></td></tr></tfoot>
+</table><table class="seccion-tabla">
+<thead><tr><th><h2>PROBATORIOS</h2></th></tr></thead>
+<tbody><tr class="probatorios-row"><td><article class="probatorios-item">
+<div class="probatorios-section">
+<h3>Ponte en line@</h3>
+<div class="probatorios-grid">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/septiembre/uapa-01.png" alt="Evidencia 1">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/septiembre/uapa-02.png" alt="Evidencia 2">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/septiembre/uapa-03.png" alt="Evidencia 3">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/septiembre/uapa-04.png" alt="Evidencia 4">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/septiembre/uapa-09.png" alt="Evidencia 5">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/septiembre/uapa-10.png" alt="Evidencia 6">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/septiembre/uapa-11.png" alt="Evidencia 7">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/septiembre/uapa-12.png" alt="Evidencia 8">
+</div>
+<p class="probatorios-caption">Ponte en line@ - UAPA 1</p>
+</div>
+</article></td></tr>
+<tr class="probatorios-row probatorios-row--salto"><td><article class="probatorios-item salto-pagina-antes">
+<div class="probatorios-section">
+<h3>Ponte en line@</h3>
+<div class="probatorios-grid">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/septiembre/uapa-05.png" alt="Evidencia 1">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/septiembre/uapa-06.png" alt="Evidencia 2">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/septiembre/uapa-07.png" alt="Evidencia 3">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/septiembre/uapa-08.png" alt="Evidencia 4">
+</div>
+<p class="probatorios-caption">Ponte en line@ - UAPA 2</p>
+</div>
+</article></td></tr>
+<tr class="probatorios-row"><td><article class="probatorios-item">
+<div class="probatorios-section">
+<h3>Programa de Liderazgo e Innovación Interprofesional en Salud</h3>
+<div class="probatorios-grid">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/septiembre/pliis-01.png" alt="Evidencia 1">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/septiembre/pliis-02.png" alt="Evidencia 2">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/septiembre/pliis-03.png" alt="Evidencia 3">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/septiembre/pliis-04.png" alt="Evidencia 4">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/septiembre/pliis-05.png" alt="Evidencia 5">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/septiembre/pliis-06.png" alt="Evidencia 6">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/septiembre/pliis-07.png" alt="Evidencia 7">
+  <img src="file:///home/rodrigo-aizpuru/Documentos/Dev/hace-reportes/reportes/imagenes/septiembre/pliis-08.png" alt="Evidencia 8">
+</div>
+<p class="probatorios-caption">Programa de Liderazgo e Innovación Interprofesional en Salud</p>
+</div>
+</article></td></tr></tbody>
+<tfoot><tr><td class="seccion-tabla-cierre"></td></tr></tfoot>
+</table>
+        </section>
+
+        <footer>
+            <div class="firmas-container">
+                <div class="firma-box">
+                    <div class="linea-firma"></div>
+                    <p class="nombre-firma">Mtro. Jesús Rodrigo Aizpuru Parra</p>
+                    <p class="cargo-firma">Diseño Web e Integración</p>
+                </div>
+                <div class="firma-box">
+                    <div class="linea-firma"></div>
+                    <p class="nombre-firma">Lic. Joel Villamar Chulin</p>
+                    <p class="cargo-firma">Coordinador de Diseño Web e Integración</p>
+                </div>
+                <div class="firma-box firma-completa">
+                    <div class="linea-firma"></div>
+                    <p class="nombre-firma">Dra. Lilia Macedo de la Concha</p>
+                    <p class="cargo-firma">Secretaria SUAYED</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
